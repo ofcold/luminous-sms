@@ -2,7 +2,8 @@
 A powerful international SMS push.
 
 
-## Use
+## Usage
+
 ```php
 	
 	use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
@@ -27,7 +28,7 @@ A powerful international SMS push.
 	$sms->sender('18898726543', function(MessagerInterface $messager) {
 		$messager->setCode(86)
 			->setContent('{name}，您的注册码是{code}, 有效期 {time}.')
-			->setRender([
+			->setData([
 				'name'	=> 'Hello sms',
 				'code'	=> RandomNumber::make(6),
 				'time'	=> 10

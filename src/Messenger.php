@@ -14,6 +14,16 @@ use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
  */
 class Messenger implements MessagerInterface
 {
+	protected $type;
+
+	protected $code;
+
+	protected $content;
+
+	protected $template;
+
+	protected $parserData = [];
+
 	/**
 	 *	Return the message type.
 	 *
@@ -41,7 +51,11 @@ class Messenger implements MessagerInterface
 	 */
 	public function getContent() : string
 	{
-		return $this->content;
+		return (new \StringTemplate\Engine)
+			->render(
+				$this->content,
+				$this->parserData
+			);
 	}
 
 	/**
@@ -52,6 +66,13 @@ class Messenger implements MessagerInterface
 	public function setContent(string $content) : self
 	{
 		$this->content = $content;
+
+		return $this;
+	}
+
+	public function setData(array $data) : self
+	{
+		$this->parserData = $data;
 
 		return $this;
 	}

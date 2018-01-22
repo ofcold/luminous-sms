@@ -16,7 +16,8 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"guzzlehttp/guzzle": "^6.2"
+		"guzzlehttp/guzzle": "^6.2",
+		"nicmart/string-template": "~0.1"
 	},
 	"autoload": {
 		"psr-4": {
