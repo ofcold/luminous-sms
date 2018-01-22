@@ -1,0 +1,25 @@
+{
+	"name": "anomalylab/luminous-sms",
+	"description": "A powerful international SMS push.",
+	"keywords": [
+		"luminous sms",
+		"sms",
+		"php7",
+	],
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "bill li",
+			"email": "bill.li@anomaly.ink"
+		}
+	],
+	"require": {
+		"php": ">=7.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"AnomalyLab\\LuminousSMS\\": "src/"
+		}
+	}
+}
