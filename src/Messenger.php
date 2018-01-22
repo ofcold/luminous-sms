@@ -31,7 +31,7 @@ class Messenger implements MessagerInterface
 	 */
 	public function getCode() : int
 	{
-		return $this->code;
+		return $this->code ?: 86;
 	}
 
 	/**
