@@ -2,6 +2,7 @@
 
 namespace AnomalyLab\LuminousSMS\Support;
 
+use Closure;
 use ArrayAccess;
 
 /**
@@ -130,7 +131,7 @@ class Configure
 	{
 		if ( ! static::accessible($array) )
 		{
-			return value($default);
+			return static::value($default);
 		}
 
 		if ( is_null($key) )
@@ -145,7 +146,7 @@ class Configure
 
 		if ( strpos($key, '.') === false )
 		{
-			return $array[$key] ?? value($default);
+			return $array[$key] ?? static::value($default);
 		}
 
 		foreach ( explode('.', $key) as $segment )
@@ -156,7 +157,7 @@ class Configure
 			}
 			else
 			{
-				return value($default);
+				return static::value($default);
 			}
 		}
 
@@ -229,5 +230,17 @@ class Configure
 		}
 
 		return array_key_exists($key, $array);
+	}
+
+	/**
+	 *	Return the default value of the given value.
+	 *
+	 *	@param		mixed		$value
+	 *
+	 *	@return		mixed
+	 */
+	public static function value($value)
+	{
+		return $value instanceof Closure ? $value() : $value;
 	}
 }

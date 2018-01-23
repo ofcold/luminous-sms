@@ -2,9 +2,11 @@
 
 namespace AnomalyLab\LuminousSMS;
 
+use Closure;
+use InvalidArgumentException;
 use AnomalyLab\LuminousSMS\Support\Configure;
 use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
-use AnomalyLab\LuminousSMS\Execptions\InvalidArgumentException;
+use AnomalyLab\LuminousSMS\Handlers\Qclod;
 
 /**
  *	Class LuminousSMS
@@ -29,7 +31,7 @@ class LuminousSMS
 	 *	@var		array
 	 */
 	protected $handlers = [
-		'qclod'	=> AnomalyLab\LuminousSMS\Handlers\Qclod::class
+		'qclod'	=> Qclod::class
 	];
 
 	/**
@@ -40,18 +42,18 @@ class LuminousSMS
 	 *
 	 *	@return		mixed
 	 */
-	public function sender($callback, ?string $handler)
+	public function sender($callback, ?string $handler = null)
 	{
 		//	@var Messenger
 		$messenger = $this->getMessenger();
 
-		//	Check the parameters and throw an exception!
-		if ( !is_callable($callback) || !is_array($callback) )
-		{
-			throw new InvalidArgumentException(
-				'The first parameter to send the message must be an array or callable.'
-			);
-		}
+		// //	Check the parameters and throw an exception!
+		// if ( !($callback instanceof Closure) || !is_array($callback) )
+		// {
+		// 	throw new InvalidArgumentException(
+		// 		'The first parameter to send the message must be an array or callable.'
+		// 	);
+		// }
 
 		is_array($callback)
 			? array_walk_recursive($callback, function($value, $slug) use($messenger) {
@@ -65,7 +67,7 @@ class LuminousSMS
 			})
 			: $callback($this->getMessenger());
 
-		$handler = $handler
+		$handler = ! is_null($handler)
 			 ? $this->makeHandler($handler)
 			 : $this->getDefaultHandler();
 
@@ -99,11 +101,11 @@ class LuminousSMS
 
 	public function getDefaultHandler()
 	{
-		return $this->makeHandler(Configure::item('default_gateway'));
+		return $this->makeHandler(Configure::item('default_handler'));
 	}
 
 	/**
-	 *	Set default gateway name.
+	 *	Set default handler name.
 	 *
 	 *	@param		string		$name
 	 *
@@ -111,7 +113,7 @@ class LuminousSMS
 	 */
 	public function setDefaultHandler(string $name) : self
 	{
-		if ( $this->gatewayExists($name) )
+		if ( $this->handlerExists($name) )
 		{
 			$this->setConfig();
 		}
@@ -120,7 +122,7 @@ class LuminousSMS
 	}
 
 	/**
-	 *	Make gateway and configure basic information.
+	 *	Make handler and configure basic information.
 	 *
 	 *	@param		string		$name
 	 *
@@ -130,15 +132,19 @@ class LuminousSMS
 	 */
 	protected function makeHandler(string $name) : HandlerInterface
 	{
-		$gateway = (new $this->getHandler($name))
+		$handler = $this->getHandler($name);
+
+		$handler = (new $handler)
 			->setConfig(Configure::item('supported.' . $name));
 
-		if ( !($gateway instanceof HandlerInterface) )
+		if ( !($handler instanceof HandlerInterface) )
 		{
-			throw new InvalidArgumentException(sprintf('Handler "%s" not inherited from %s.', $name, HandlerInterface::class));
+			throw new InvalidArgumentException(
+				sprintf('Handler "%s" not inherited from %s.', $name, HandlerInterface::class)
+			);
 		}
 
-		return $gateway;
+		return $handler;
 	}
 
 	/**
@@ -148,7 +154,7 @@ class LuminousSMS
 	 *
 	 *	@return		bool
 	 */
-	protected function gatewayExists(string $name) : bool
+	protected function handlerExists(string $name) : bool
 	{
 		return isset($this->handlers[$name]) && Configure::hasItem('supported.' . $name);
 	}
@@ -162,9 +168,9 @@ class LuminousSMS
 	 */
 	protected function getHandler(string $name) : string
 	{
-		if ( ! $this->gatewayExists($string)  )
+		if ( ! $this->handlerExists($string)  )
 		{
-			throw new InvalidArgumentException(sprintf('The gateway: "%s" you are using does not exist.', $name));
+			throw new InvalidArgumentException(sprintf('The handler: "%s" you are using does not exist.', $name));
 		}
 
 		return $this->handlers[$name];

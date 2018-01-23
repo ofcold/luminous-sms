@@ -12,7 +12,7 @@ $sms = (new LuminousSMS)
 
 $sms->sender(function($messager) {
 	$messager->setCode(86)
-		->setMobilePhone('18898726543');
+		->setMobilePhone('18898726543')
 		->setContent('{name}，您的注册码是{code}, 有效期 {time}.')
 			->setData([
 				'name'	=> 'Hello sms',
