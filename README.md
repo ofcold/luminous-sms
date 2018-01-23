@@ -65,7 +65,7 @@ A message to support multi-platform send, each sent in a different way, but we a
 
 ## Platform configuration instructions
 
-### [云片](https://www.yunpian.com)
+#### [云片](https://www.yunpian.com)
 
 ```php
     'yunpian' => [
@@ -73,7 +73,7 @@ A message to support multi-platform send, each sent in a different way, but we a
     ],
 ```
 
-### [腾讯云 SMS](https://cloud.tencent.com/product/sms)
+#### [腾讯云 SMS](https://cloud.tencent.com/product/sms)
 
 ```php
     'qcloud' => [
