@@ -30,6 +30,10 @@ class Yunpian extends Handler
 	protected $name = 'yunpian';
 
 	/**
+	 *	Seed message.
+	 *
+	 *	The current drive service providers to implement push information content.
+	 *
 	 *	@param		int|string		$to
 	 *	@param		\AnomalyLab\LuminousSMS\Contracts\MessagerInterface		$messager
 	 *
