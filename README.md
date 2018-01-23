@@ -1,4 +1,4 @@
-<h1 align="center">Luminous SMS</h1>
+<p align="center"><img src="https://github.com/anomalylab/luminous-sms/raw/master/sms.svg?sanitize=true"></p>
 A powerful international SMS push.
 
 ## Features
