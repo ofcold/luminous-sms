@@ -3,14 +3,14 @@
 namespace AnomalyLab\LuminousSMS\Contracts;
 
 /**
- *	Interface GatewayInterface
+ *	Interface HandlerInterface
  *
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Contracts\GatewayInterface
+ *	@package		AnomalyLab\LuminousSMS\Contracts\HandlerInterface
  */
-interface GatewayInterface
+interface HandlerInterface
 {
 	/**
 	 *	Return the gateway name.

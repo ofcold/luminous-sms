@@ -40,4 +40,18 @@ abstract class Handler implements HandlerInterface
 	{
 		return $this->name;
 	}
+
+	/**
+	 *	Set of the handler configuration.
+	 *
+	 *	@param		array		$config
+	 *
+	 *	@return		$this
+	 */
+	public function setConfig(array $config)
+	{
+		$this->config = $config;
+
+		return $this;
+	}
 }

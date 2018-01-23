@@ -17,13 +17,6 @@ interface MessagerInterface
 	public const VOICE_MESSAGE = 'voice';
 
 	/**
-	 *	Return the message type.
-	 *
-	 *	@return		string
-	 */
-	public function getMessageType() : string;
-
-	/**
 	 *	Return the country code.
 	 *
 	 *	@return		int

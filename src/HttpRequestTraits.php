@@ -22,9 +22,9 @@ trait HttpRequestTraits
 	 *	@param		array		$query
 	 *	@param		array		$headers
 	 *
-	 *	@return		array
+	 *	@return		mixed
 	 */
-	protected function get(string $endpoint, array $query = [], array $headers = []) : array
+	protected function get(string $endpoint, array $query = [], array $headers = [])
 	{
 		return $this->request(
 			'get',
@@ -35,6 +35,7 @@ trait HttpRequestTraits
 			]
 		);
 	}
+
 	/**
 	 *	Make a post request.
 	 *
@@ -42,9 +43,9 @@ trait HttpRequestTraits
 	 *	@param		array		$params
 	 *	@param		array		$headers
 	 *
-	 *	@return		array
+	 *	@return		mixed
 	 */
-	protected function post(string $endpoint, array $params = [], array $headers = []) : array
+	protected function post(string $endpoint, array $params = [], array $headers = [])
 	{
 		return $this->request(
 			'post',
@@ -62,9 +63,9 @@ trait HttpRequestTraits
 	 *	@param		string		$endpoint
 	 *	@param		array		$options		http://docs.guzzlephp.org/en/latest/request-options.html
 	 *
-	 *	@return		array
+	 *	@return		mixed
 	 */
-	protected function request(string $method, string $endpoint, array $options = []) : array
+	protected function request(string $method, string $endpoint, array $options = [])
 	{
 		return $this->unwrapResponse(
 			$this
@@ -104,9 +105,9 @@ trait HttpRequestTraits
 	 *
 	 *	@param		\Psr\Http\Message\ResponseInterface $response
 	 *
-	 *	@return		array
+	 *	@return		mixed
 	 */
-	protected function unwrapResponse(ResponseInterface $response) : array
+	protected function unwrapResponse(ResponseInterface $response)
 	{
 		$contentType = $response->getHeaderLine('Content-Type');
 		$contents = $response->getBody()->getContents();

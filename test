@@ -11,13 +11,13 @@ $sms = (new LuminousSMS)
 	->setConfig(include __DIR__ . '/resources/config/luminous_sms.php');
 
 $sms->sender(function($messager) {
-	$messager->setCode(86)
-		->setMobilePhone('18898726543')
-		->setContent('{name}，您的注册码是{code}, 有效期 {time}.')
-			->setData([
-				'name'	=> 'Hello sms',
-				'code'	=> rand(100000, 999999),
-				'time'	=> 10
-			]);
+	$messager
+		->setMobilePhone('18520863905')
+		->setContent('{name},您的验证码是{code}, 验证码将在{time}分钟后失效！请及时使用。')
+		->setData([
+			'name'	=> 'Hello',
+			'code'	=> rand(100000, 999999),
+			'time'	=> 10
+		]);
 });
 print_r($sms);

@@ -27,16 +27,6 @@ class Messenger implements MessagerInterface
 	protected $mobilePhone;
 
 	/**
-	 *	Return the message type.
-	 *
-	 *	@return		string
-	 */
-	public function getMessageType() : string
-	{
-		return $this->type;
-	}
-
-	/**
 	 *	Return the country code.
 	 *
 	 *	@return		int

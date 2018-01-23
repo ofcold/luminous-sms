@@ -3,6 +3,8 @@
 namespace AnomalyLab\LuminousSMS\Handlers;
 
 use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
+use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
+use AnomalyLab\LuminousSMS\Support\Configure;
 
 /**
  *	Class Qclod
@@ -44,19 +46,26 @@ class Qclod extends Handler
 				'nationcode'	=> $messager->getCode(),
 				'mobile'		=> $messager->getMobilePhone()
 			],
-			'type'		=> $messager->getType(),
+			'type'		=> MessagerInterface::TEXT_MESSAGE,
 			'msg'		=> $messager->getContent(),
 			'time'		=> time(),
 			'extend'	=> '',
 			'ext'		=> ''
 		];
 
-		$random = str_random(10);
+		$random = Configure::random(10);
 
 		$params['sig'] = $this->generateSign($params, $random);
 
-		$result = $this->post(
-			sprintf('%s%s?sdkappid=%s&random=%s', self::REQUEST_URL, self::REQUEST_METHOD, $config['sdk_app_id'], $random),
+		$result = $this->request(
+			'post',
+			sprintf(
+				'%s%s?sdkappid=%s&random=%s',
+				static::REQUEST_URL,
+				static::REQUEST_METHOD,
+				Configure::get($this->config, 'app_id'),
+				$random
+			),
 			[
 				'headers'	=> [
 					'Accept' => 'application/json'

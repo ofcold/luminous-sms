@@ -65,13 +65,13 @@ class LuminousSMS
 					$messenger->$method($value);
 				}
 			})
-			: $callback($this->getMessenger());
+			: $callback($messenger);
 
-		$handler = ! is_null($handler)
+		$smsHandler = $handler !== null
 			 ? $this->makeHandler($handler)
 			 : $this->getDefaultHandler();
 
-		return $handler->send($messenger);
+		return $smsHandler->send($messenger);
 	}
 
 	/**
@@ -168,7 +168,7 @@ class LuminousSMS
 	 */
 	protected function getHandler(string $name) : string
 	{
-		if ( ! $this->handlerExists($string)  )
+		if ( ! $this->handlerExists($name)  )
 		{
 			throw new InvalidArgumentException(sprintf('The handler: "%s" you are using does not exist.', $name));
 		}
