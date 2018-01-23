@@ -37,12 +37,12 @@ class Qclod extends Handler
 	 *
 	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 	 */
-	public function send($to, MessagerInterface $messager) : array
+	public function send(MessagerInterface $messager) : array
 	{
 		$params = [
 			'tel'	=> [
-				'nationcode'=> $messager->getCode(),
-				'mobile'	=> $to,
+				'nationcode'	=> $messager->getCode(),
+				'mobile'		=> $messager->getMobilePhone()
 			],
 			'type'		=> $messager->getType(),
 			'msg'		=> $messager->getContent(),
@@ -58,7 +58,9 @@ class Qclod extends Handler
 		$result = $this->post(
 			sprintf('%s%s?sdkappid=%s&random=%s', self::REQUEST_URL, self::REQUEST_METHOD, $config['sdk_app_id'], $random),
 			[
-				'headers'	=> ['Accept' => 'application/json'],
+				'headers'	=> [
+					'Accept' => 'application/json'
+				],
 				'json'		=> $params,
 			]
 		);
@@ -82,10 +84,14 @@ class Qclod extends Handler
 	protected function generateSign(array $params, string $random) : string
 	{
 		ksort($params);
-		return hash('sha256', sprintf('appkey=%s&random=%s&time=%s&mobile=%s',
-			$this->config['app_key'],
+		return hash(
+			'sha256',
+			sprintf('appkey=%s&random=%s&time=%s&mobile=%s',
+			Configure::get($this->config, 'app_key'),
 			$random,
 			$params['time'],
-			$params['tel']['mobile']), false);
+			$params['tel']['mobile']),
+			false
+		);
 	}
 }

@@ -25,6 +25,13 @@ abstract class Handler implements HandlerInterface
 	protected $name;
 
 	/**
+	 *	The config of Qcold information.
+	 *
+	 *	@var		array
+	 */
+	protected $config = [];
+
+	/**
 	 *	Return the gateway name.
 	 *
 	 *	@return		string

@@ -24,6 +24,8 @@ class Messenger implements MessagerInterface
 
 	protected $parserData = [];
 
+	protected $mobilePhone;
+
 	/**
 	 *	Return the message type.
 	 *
@@ -52,6 +54,18 @@ class Messenger implements MessagerInterface
 	public function setCode(int $code) : MessagerInterface
 	{
 		$this->code = $code;
+
+		return $this;
+	}
+
+	public function getMobilePhone() : string
+	{
+		return $this->mobilePhone;
+	}
+
+	public function setMobilePhone(string $mobilePhone) : MessagerInterface
+	{
+		$this->mobilePhone = $mobilePhone;
 
 		return $this;
 	}

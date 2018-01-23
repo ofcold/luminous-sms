@@ -4,6 +4,7 @@ namespace AnomalyLab\LuminousSMS;
 
 use AnomalyLab\LuminousSMS\Support\Configure;
 use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
+use AnomalyLab\LuminousSMS\Execptions\InvalidArgumentException;
 
 /**
  *	Class LuminousSMS
@@ -31,15 +32,44 @@ class LuminousSMS
 		'qclod'	=> AnomalyLab\LuminousSMS\Handlers\Qclod::class
 	];
 
-	public function sender(string $to, callable $callback, ?string $gateway = null)
+	/**
+	 *	Implement SMS push.
+	 *
+	 *	@param		callable|array		$callback
+	 *	@param		string|null			$handler
+	 *
+	 *	@return		mixed
+	 */
+	public function sender($callback, ?string $handler)
 	{
-		$callback($this->getMessenger());
+		//	@var Messenger
+		$messenger = $this->getMessenger();
 
-		$instance = $gateway
-			 ? $this->makeHandler($gateway)
+		//	Check the parameters and throw an exception!
+		if ( !is_callable($callback) || !is_array($callback) )
+		{
+			throw new InvalidArgumentException(
+				'The first parameter to send the message must be an array or callable.'
+			);
+		}
+
+		is_array($callback)
+			? array_walk_recursive($callback, function($value, $slug) use($messenger) {
+
+				$method = 'set' . ucfirst($slug);
+
+				if ( method_exists($messenger, $method) )
+				{
+					$messenger->$method($value);
+				}
+			})
+			: $callback($this->getMessenger());
+
+		$handler = $handler
+			 ? $this->makeHandler($handler)
 			 : $this->getDefaultHandler();
 
-		return $instance->send();
+		return $handler->send($messenger);
 	}
 
 	/**
