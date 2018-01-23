@@ -20,4 +20,3 @@ $sms->sender(function($messager) {
 			'time'	=> 10
 		]);
 });
-print_r($sms);

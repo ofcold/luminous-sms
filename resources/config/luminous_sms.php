@@ -21,10 +21,10 @@ return [
 		'qclod'		=> [
 
 			//	The app key
-			'app_key'			=> '0ab93dee585584abc5fff6e194a7cf81',
+			'app_key'			=> 'app key',
 
 			//	The app id
-			'app_id'			=> '1400030784',
+			'app_id'			=> 'app id',
 		],
 
 		'yunpian'	=> [
