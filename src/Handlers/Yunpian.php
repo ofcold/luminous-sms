@@ -6,6 +6,14 @@ use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
 use AnomalyLab\LuminousSMS\Support\Configure;
 
+/**
+ *	Class Yunpian
+ *
+ *	@link			https://anomaly.ink
+ *	@author			Anomaly lab, Inc <support@anomaly.ink>
+ *	@author			Bill Li <bill@anomaly.ink>
+ *	@package		AnomalyLab\LuminousSMS\Handlers\Qclod
+ */
 class Yunpian extends Handler
 {
 	protected const REQUEST_TEMPLATE = 'https://%s.yunpian.com/%s/%s/%s.%s';
