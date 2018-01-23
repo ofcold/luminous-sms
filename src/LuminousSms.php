@@ -8,6 +8,7 @@ use AnomalyLab\LuminousSMS\Support\Configure;
 use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
 use AnomalyLab\LuminousSMS\Handlers\Qclod;
 use AnomalyLab\LuminousSMS\Handlers\Yunpian;
+use AnomalyLab\LuminousSMS\Handlers\Juhe;
 
 /**
  *	Class LuminousSMS
@@ -33,7 +34,8 @@ class LuminousSMS
 	 */
 	protected $handlers = [
 		'qclod'		=> Qclod::class,
-		'yunpian'	=> Yunpian::class
+		'yunpian'	=> Yunpian::class,
+		'juhe'		=> Juhe::class
 	];
 
 	/**
