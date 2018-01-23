@@ -42,6 +42,11 @@ $sms = (new AnomalyLab\LuminousSMS\LuminousSms)
 	]
 ]);
 
+```
+
+#### Seeding
+
+```php
 $sms->sender(function($messager) {
 	$messager
 		->setMobilePhone('18898726543')
@@ -52,7 +57,19 @@ $sms->sender(function($messager) {
 			'time'	=> 10
 		]);
 });
+```
 
+##### OR
+```php
+$sms->sender([
+	'mobilePhone'	=> '18898726543',
+	'content'		=> '{name},您的验证码是{code}, 验证码将在{time}分钟后失效！请及时使用。',
+	'data'			=> [
+		'name'	=> 'Hello',
+		'code'	=> rand(100000, 999999),
+		'time'	=> 10
+	]
+]);
 ```
 
 ## SMS content
