@@ -25,7 +25,7 @@ class Qclod extends Handler
 	protected const REQUEST_VERSION = 'v5';
 
 	/**
-	 *	The gateway name.
+	 *	The handler name.
 	 *
 	 *	@var		string
 	 */
