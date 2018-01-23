@@ -19,7 +19,7 @@ A powerful international SMS push.
 ## Intalling
 
 ```shell
-$ composer require "anomalylab/luminous-sms"
+$ composer require anomalylab/luminous-sms
 ```
 
 ## Usage
