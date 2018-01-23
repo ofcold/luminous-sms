@@ -11,6 +11,8 @@ A powerful international SMS push.
 ## Platform support
 - [腾讯云 SMS](https://cloud.tencent.com/product/sms)
 - [云片](https://www.yunpian.com)
+- [云片](https://www.yunpian.com)
+- [聚合数据](https://www.juhe.cn)
 
 ## Environmental
 
@@ -96,6 +98,16 @@ A message to support multi-platform send, each sent in a different way, but we a
     'qcloud' => [
         'app_id' => '',  // APP ID
         'app_key' => '', // APP KEY
+    ],
+```
+
+#### [聚合数据](https://www.juhe.cn)
+
+短信内容使用 `template` + `data`
+
+```php
+    'juhe' => [
+        'app_key' => '',
     ],
 ```
 
