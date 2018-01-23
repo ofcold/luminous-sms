@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use AnomalyLab\LuminousSMS\LuminousSMS;
+use AnomalyLab\LuminousSMS\RandomNumber;
+use AnomalyLab\LuminousSMS\Support\Configure;
+
+$sms = (new LuminousSMS)
+	->setConfig(include __DIR__ . '/resources/config/luminous_sms.php');
+
+$sms->sender('18898726543', function($messager) {
+	$messager->setCode(86)
+		->setContent('{name}，您的注册码是{code}, 有效期 {time}.')
+			->setData([
+				'name'	=> 'Hello sms',
+				'code'	=> rand(100000, 999999),
+				'time'	=> 10
+			]);
+});
+print_r($sms);

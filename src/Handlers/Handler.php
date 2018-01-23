@@ -1,19 +1,19 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Gateways;
+namespace AnomalyLab\LuminousSMS\Handlers;
 
 use AnomalyLab\LuminousSMS\HttpRequestTraits;
-use AnomalyLab\LuminousSMS\Contracts\GatewayInterface;
+use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
 
 /**
- *	Class Gateway
+ *	Class Handler
  *
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Gateways\Gateway
+ *	@package		AnomalyLab\LuminousSMS\Handlers\Handler
  */
-abstract class Gateway implements GatewayInterface
+abstract class Handler implements HandlerInterface
 {
 	use HttpRequestTraits;
 

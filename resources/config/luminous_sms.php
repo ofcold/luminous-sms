@@ -14,8 +14,9 @@ return [
 	'supported'		=> [
 
 		/**
-		 *	Tencent qclod gateway.
+		 *	Tencent qclod gateway handler.
 		 *
+		 *	@var		array
 		 */
 		'qclod'		=> [
 
@@ -29,9 +30,5 @@ return [
 		'yunpian'	=> [
 			'app_key'
 		]
-	],
-
-	'gateways'		=> [
-		'qclod'			=> AnomalyLab\LuminousSMS\Gateways\Qclod::class
 	]
 ];

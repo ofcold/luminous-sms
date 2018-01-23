@@ -3,14 +3,14 @@
 namesace AnomalyLab\LuminousSMS\Execptions;
 
 /**
- *	Class GatewayBadException
+ *	Class HandlerBadException
  *
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Execptions\GatewayBadException
+ *	@package		AnomalyLab\LuminousSMS\Execptions\HandlerBadException
  */
-class GatewayBadException extends \Execption
+class HandlerBadException extends \Execption
 {
 	
 }

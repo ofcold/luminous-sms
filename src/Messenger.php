@@ -45,6 +45,18 @@ class Messenger implements MessagerInterface
 	}
 
 	/**
+	 *	Set the country code.
+	 *
+	 *	@return		int
+	 */
+	public function setCode(int $code) : MessagerInterface
+	{
+		$this->code = $code;
+
+		return $this;
+	}
+
+	/**
 	 *	Return message content.
 	 *
 	 *	@return		string
@@ -63,14 +75,14 @@ class Messenger implements MessagerInterface
 	 *
 	 *	@param		string		$content
 	 */
-	public function setContent(string $content) : self
+	public function setContent(string $content) : MessagerInterface
 	{
 		$this->content = $content;
 
 		return $this;
 	}
 
-	public function setData(array $data) : self
+	public function setData(array $data) : MessagerInterface
 	{
 		$this->parserData = $data;
 

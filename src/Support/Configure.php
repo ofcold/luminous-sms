@@ -40,7 +40,7 @@ class Configure
 	 *
 	 *	@return		bool
 	 */
-	public static function has(string $key) : bool
+	public static function hasItem(string $key) : bool
 	{
 		return static::has(static::$items, $key);
 	}
@@ -53,7 +53,7 @@ class Configure
 	 *
 	 *	@return		mixed
 	 */
-	public static function get($key, $default = null)
+	public static function item($key, $default = null)
 	{
 		if ( is_array($key) )
 		{
@@ -206,56 +206,6 @@ class Configure
 					return false;
 				}
 
-				$subKeyArray = $subKeyArray[$segment];
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 *	Check if an item or items exist in an array using "dot" notation.
-	 *
-	 *	@param		\ArrayAccess|array		$array
-	 *	@param		string|array			$keys
-	 *
-	 *	@return		bool
-	 */
-	public static function has($array, $keys)
-	{
-		if ( is_null($keys) )
-		{
-			return false;
-		}
-
-		$keys = (array) $keys;
-
-		if ( ! $array )
-		{
-			return false;
-		}
-
-		if ( $keys === [] )
-		{
-			return false;
-		}
-
-		foreach ( $keys as $key )
-		{
-			$subKeyArray = $array;
-
-			if ( static::exists($array, $key) )
-			{
-				continue;
-			}
-
-			foreach ( explode('.', $key) as $segment )
-			{
-				if ( ! static::accessible($subKeyArray) && ! static::exists($subKeyArray, $segment) )
-				{
-					return false;
-					
-				}
 				$subKeyArray = $subKeyArray[$segment];
 			}
 		}

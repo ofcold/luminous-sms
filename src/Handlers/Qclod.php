@@ -1,8 +1,8 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Gateways;
+namespace AnomalyLab\LuminousSMS\Handlers;
 
-use AnomalyLab\LuminousSMS\Exceptions\GatewayBadException;
+use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 
 /**
  *	Class Qclod
@@ -10,9 +10,9 @@ use AnomalyLab\LuminousSMS\Exceptions\GatewayBadException;
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Gateways\Qclod
+ *	@package		AnomalyLab\LuminousSMS\Handlers\Qclod
  */
-class Qclod extends Gateway
+class Qclod extends Handler
 {
 	protected const REQUEST_URL = 'https://yun.tim.qq.com/v5/';
 
@@ -30,12 +30,12 @@ class Qclod extends Gateway
 	protected $name = 'qclod';
 
 	/**
-	 *	@param		int|string										$to
+	 *	@param		int|string		$to
 	 *	@param		\AnomalyLab\LuminousSMS\Contracts\MessagerInterface		$messager
 	 *
 	 *	@return		array
 	 *
-	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\GatewayBadException;
+	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 	 */
 	public function send($to, MessagerInterface $messager) : array
 	{
@@ -65,7 +65,7 @@ class Qclod extends Gateway
 
 		if ( 0 != $result['result'] )
 		{
-			throw new GatewayBadException($result['errmsg'], $result['result'], $result);
+			throw new HandlerBadException($result['errmsg'], $result['result'], $result);
 		}
 
 		return $result;

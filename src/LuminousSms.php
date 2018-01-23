@@ -2,25 +2,19 @@
 
 namespace AnomalyLab\LuminousSMS;
 
-use AnomalyLab\LuminousSMS\Contracts\GatewayInterface;
+use AnomalyLab\LuminousSMS\Support\Configure;
+use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
 
 /**
- *	Class LuminousSms
+ *	Class LuminousSMS
  *
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\LuminousSms
+ *	@package		AnomalyLab\LuminousSMS\LuminousSMS
  */
-class LuminousSms
+class LuminousSMS
 {
-	/**
-	 *	The configuration information.
-	 *
-	 *	@var		array
-	 */
-	protected $config = [];
-
 	/**
 	 *	The Messenger instance.
 	 *
@@ -28,27 +22,37 @@ class LuminousSms
 	 */
 	protected $messenger;
 
-	pubilc function sender($to, callback $callback, ?string $gateway = null)
+	/**
+	 *	The default handlers handler.
+	 *
+	 *	@var		array
+	 */
+	protected $handlers = [
+		'qclod'	=> AnomalyLab\LuminousSMS\Handlers\Qclod::class
+	];
+
+	public function sender(string $to, callable $callback, ?string $gateway = null)
 	{
-		callback($this->getMessenger());
+		$callback($this->getMessenger());
 
 		$instance = $gateway
-			 ? $this->makeGateway($gateway)
-			 : $this->getDefaultGateway();
+			 ? $this->makeHandler($gateway)
+			 : $this->getDefaultHandler();
 
 		return $instance->send();
 	}
 
-	public function getConfig(string $config = null)
+	/**
+	 *	Set global configuration information.
+	 *
+	 *	@param		mixed		$key
+	 *	@param		mixed		$val
+	 *
+	 *	@return		$this
+	 */
+	public function setConfig(array $items) : self
 	{
-		return $config && isset($this->config[$config])
-			 ? $this->config[$config]
-			 : $this->config;
-	}
-
-	public function setConfig($key, $val = null) : self
-	{
-		$this->config = $config;
+		Configure::setItems($items);
 
 		return $this;
 	}
@@ -63,9 +67,9 @@ class LuminousSms
 		return $this->messenger ?: $this->messenger = new Messenger($this);
 	}
 
-	public function getDefaultGateway()
+	public function getDefaultHandler()
 	{
-		return $this->makeGateway($this->config['default_gateway']);
+		return $this->makeHandler(Configure::item('default_gateway'));
 	}
 
 	/**
@@ -75,7 +79,7 @@ class LuminousSms
 	 *
 	 *	@return		$this
 	 */
-	public function setDefaultGateway(string $name) : self
+	public function setDefaultHandler(string $name) : self
 	{
 		if ( $this->gatewayExists($name) )
 		{
@@ -90,25 +94,25 @@ class LuminousSms
 	 *
 	 *	@param		string		$name
 	 *
-	 *	@return		\AnomalyLab\LuminousSMS\Contracts\GatewayInterface
+	 *	@return		\AnomalyLab\LuminousSMS\Contracts\HandlerInterface
 	 *
 	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\InvalidArgumentException
 	 */
-	protected function makeGateway(string $name) : GatewayInterface
+	protected function makeHandler(string $name) : HandlerInterface
 	{
-		$gateway = ($this->getGateway($name))
-			->setConfig($this->getConfig($name));
+		$gateway = (new $this->getHandler($name))
+			->setConfig(Configure::item('supported.' . $name));
 
-		if ( !($gateway instanceof GatewayInterface) )
+		if ( !($gateway instanceof HandlerInterface) )
 		{
-			throw new InvalidArgumentException(sprintf('Gateway "%s" not inherited from %s.', $name, GatewayInterface::class));
+			throw new InvalidArgumentException(sprintf('Handler "%s" not inherited from %s.', $name, HandlerInterface::class));
 		}
 
 		return $gateway;
 	}
 
 	/**
-	 *	Check gateways for existence.
+	 *	Check handlers for existence.
 	 *
 	 *	@param		string		$name
 	 *
@@ -116,23 +120,23 @@ class LuminousSms
 	 */
 	protected function gatewayExists(string $name) : bool
 	{
-		return isset($this->gateways['gateways'][$name]);
+		return isset($this->handlers[$name]) && Configure::hasItem('supported.' . $name);
 	}
 
 	/**
-	 *	Get the gateways name.
+	 *	Get the handlers name.
 	 *
 	 *	@param		string		$name
 	 *
 	 *	@return		string
 	 */
-	protected function getGateway(string $name) : string
+	protected function getHandler(string $name) : string
 	{
 		if ( ! $this->gatewayExists($string)  )
 		{
 			throw new InvalidArgumentException(sprintf('The gateway: "%s" you are using does not exist.', $name));
 		}
 
-		return $this->gateways['gateways'][$name];
+		return $this->handlers[$name];
 	}
 }
