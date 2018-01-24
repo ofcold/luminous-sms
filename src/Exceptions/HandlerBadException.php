@@ -1,6 +1,8 @@
 <?php
 
-namesace AnomalyLab\LuminousSMS\Execptions;
+namespace AnomalyLab\LuminousSMS\Exceptions;
+
+use Exception;
 
 /**
  *	Class HandlerBadException
@@ -8,9 +10,9 @@ namesace AnomalyLab\LuminousSMS\Execptions;
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Execptions\HandlerBadException
+ *	@package		AnomalyLab\LuminousSMS\Exceptions\HandlerBadException
  */
-class HandlerBadException extends \Execption
+class HandlerBadException extends Exception
 {
-	
+
 }
