@@ -9,6 +9,7 @@ use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
 use AnomalyLab\LuminousSMS\Handlers\Qcloud;
 use AnomalyLab\LuminousSMS\Handlers\Yunpian;
 use AnomalyLab\LuminousSMS\Handlers\Juhe;
+use AnomalyLab\LuminousSMS\Handlers\Alidayu;
 
 /**
  *	Class LuminousSMS
@@ -35,6 +36,7 @@ class LuminousSMS
 	protected $handlers = [
 		'qcloud'		=> Qcloud::class,
 		'yunpian'	=> Yunpian::class,
+		'alidayu'	=> Alidayu::class,
 		'juhe'		=> Juhe::class
 	];
 
