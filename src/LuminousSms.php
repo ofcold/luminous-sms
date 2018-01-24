@@ -4,12 +4,15 @@ namespace AnomalyLab\LuminousSMS;
 
 use Closure;
 use InvalidArgumentException;
-use AnomalyLab\LuminousSMS\Support\Configure;
-use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
-use AnomalyLab\LuminousSMS\Handlers\Qcloud;
-use AnomalyLab\LuminousSMS\Handlers\Yunpian;
-use AnomalyLab\LuminousSMS\Handlers\Juhe;
-use AnomalyLab\LuminousSMS\Handlers\Alidayu;
+use AnomalyLab\LuminousSMS\{
+	Support\Configure,
+	Contracts\HandlerInterface,
+	Handlers\Qcloud,
+	Handlers\Yunpian,
+	Handlers\Juhe,
+	Handlers\Alidayu,
+	Handlers\Baidu
+};
 
 /**
  *	Class LuminousSMS
@@ -34,9 +37,10 @@ class LuminousSMS
 	 *	@var		array
 	 */
 	protected $handlers = [
-		'qcloud'		=> Qcloud::class,
+		'qcloud'	=> Qcloud::class,
 		'yunpian'	=> Yunpian::class,
 		'alidayu'	=> Alidayu::class,
+		'baidu'		=> Baidu::class,
 		'juhe'		=> Juhe::class
 	];
 
