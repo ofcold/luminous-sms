@@ -57,6 +57,15 @@ class Qcloud extends Handler
 			$params['sign']	= $sign;
 		}
 
+		//	Set the full mobile phone.
+		$params['tel']	= [
+			'nationcode'	=> $messager->getCode(),
+			'mobile'		=> $messager->getMobilePhone()
+		];
+
+		$params['time'] = time();
+		$params['ext'] = '';
+
 		$random = Stringy::random(10);
 
 		$params['sig'] = $this->generateSign($params, $random);
@@ -86,33 +95,39 @@ class Qcloud extends Handler
 		return $result;
 	}
 
+	/**
+	 *	Voicemail.
+	 *
+	 *	Text SMS request body.
+	 *
+	 *	@param		MessagerInterface		$messager
+	 *
+	 *	@return		array
+	 */
 	protected function text(MessagerInterface $messager) : array
 	{
 		return [
-			'tel'	=> [
-				'nationcode'	=> $messager->getCode(),
-				'mobile'		=> $messager->getMobilePhone()
-			],
 			'type'		=> (int)($messager->getType() !== 'text'),
 			'msg'		=> $messager->getContent(),
-			'time'		=> time(),
-			'extend'	=> '',
-			'ext'		=> ''
+			'extend'	=> ''
 		];
 	}
 
+	/**
+	 *	Voicemail.
+	 *
+	 *	Voice SMS request body.
+	 *
+	 *	@param		MessagerInterface		$messager
+	 *
+	 *	@return		array
+	 */
 	protected function voice(MessagerInterface $messager) : array
 	{
 		return [
-			'tel'			=> [
-				'nationcode'	=> $messager->getCode(),
-				'mobile'		=> $messager->getMobilePhone()
-			],
 			'promptfile'	=> $messager->getContent(),
 			'prompttype'	=> 2,
-			'playtimes'		=> 2,
-			'time'			=> time(),
-			'ext'			=> ''
+			'playtimes'		=> 2
 		];
 	}
 
