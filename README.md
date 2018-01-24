@@ -13,6 +13,7 @@ A powerful international SMS push.
 - [云片](https://www.yunpian.com)
 - [阿里大鱼](https://www.alidayu.com)
 - [聚合数据](https://www.juhe.cn)
+- [百度云](https://cloud.baidu.com)
 
 ## Environmental
 
@@ -115,10 +116,21 @@ A message to support multi-platform send, each sent in a different way, but we a
 #### [阿里大鱼](https://www.alidayu.cn)
 
 ```php
-    'juhe' => [
+    'alidayu' => [
         'sign_name' => '',
         'app_key' => '',
         'app_secret' => '',
+    ],
+```
+
+#### [百度云](https://cloud.baidu.com/)
+
+```php
+    'baidu' => [
+        'ak' 		=> '',
+        'sk' 		=> '',
+        'invoke_id' => '',
+        'domain'	=> '',
     ],
 ```
 
