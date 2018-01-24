@@ -32,7 +32,7 @@ use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
 
 $sms = (new AnomalyLab\LuminousSMS\LuminousSms)
 	->setConfig([
-	'default_gateway'		=> 'qcloud',
+	'default_handler'		=> 'qcloud',
 	'supported'		=> [
 		'qcloud'			=> [
 			'app_key'			=> 'app key',
