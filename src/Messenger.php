@@ -28,7 +28,7 @@ class Messenger implements MessagerInterface
 
 	protected $mobilePhone;
 
-	public function getSign() : string
+	public function getSign() : ?string
 	{
 		return $this->sign;
 	}
