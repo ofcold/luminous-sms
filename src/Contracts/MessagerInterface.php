@@ -16,6 +16,10 @@ interface MessagerInterface
 
 	public const VOICE_MESSAGE = 'voice';
 
+	public const TEXT_MANY_MESSAGE = 'text_many';
+
+	public const TEMPLATE_MESSAGE = 'template';
+
 	/**
 	 *	Return the country code.
 	 *
