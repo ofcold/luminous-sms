@@ -19,7 +19,10 @@ class Qclod extends Handler
 {
 	protected const REQUEST_URL = 'https://yun.tim.qq.com/v5/';
 
-	protected const REQUEST_METHOD = 'tlssmssvr/sendsms';
+	protected const REQUEST_METHOD = [
+		'text'	=> 'tlssmssvr/sendsms',
+		'voice'	=> 'tlsvoicesvr/sendvoiceprompt'
+	];
 
 	protected const REQUEST_FORMAT = 'json';
 
@@ -46,17 +49,7 @@ class Qclod extends Handler
 	 */
 	public function send(MessagerInterface $messager) : array
 	{
-		$params = [
-			'tel'	=> [
-				'nationcode'	=> $messager->getCode(),
-				'mobile'		=> $messager->getMobilePhone()
-			],
-			'type'		=> MessagerInterface::TEXT_MESSAGE,
-			'msg'		=> $messager->getContent(),
-			'time'		=> time(),
-			'extend'	=> '',
-			'ext'		=> ''
-		];
+		$params = $this->{$messager->getType()}($messager);
 
 		$random = Stringy::random(10);
 
@@ -67,7 +60,7 @@ class Qclod extends Handler
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
 				static::REQUEST_URL,
-				static::REQUEST_METHOD,
+				static::REQUEST_METHOD[$messager->getType()],
 				Arrays::get($this->config, 'app_id'),
 				$random
 			),
@@ -85,6 +78,35 @@ class Qclod extends Handler
 		}
 
 		return $result;
+	}
+
+	protected function text(MessagerInterface $messager) : array
+	{
+		return [
+			'tel'	=> [
+				'nationcode'	=> $messager->getCode(),
+				'mobile'		=> $messager->getMobilePhone()
+			],
+			'type'		=> (int)($messager->getType() !== 'text'),
+			'msg'		=> $messager->getContent(),
+			'time'		=> time(),
+			'extend'	=> '',
+			'ext'		=> ''
+		];
+	}
+
+	protected function voice(MessagerInterface $messager) : array
+	{
+		return [
+			'tel'	=> [
+				'nationcode'	=> $messager->getCode(),
+				'mobile'		=> $messager->getMobilePhone()
+			],
+			'msg'		=> $messager->getContent(),
+			'playtimes'	=> 2,
+			'time'		=> time(),
+			'ext'		=> ''
+		];
 	}
 
 	/**
