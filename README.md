@@ -52,6 +52,8 @@ $sms = (new AnomalyLab\LuminousSMS\LuminousSms)
 $sms->sender(function($messager) {
 	$messager
 		->setMobilePhone('18898726543')
+		//	Use voice.
+		->setType(AnomalyLab\LuminousSMS\Contracts\MessagerInterface::VOICE_MESSAGE)
 		->setContent('{name},您的验证码是{code}, 验证码将在{time}分钟后失效！请及时使用。')
 		->setData([
 			'name'	=> 'Hello',
