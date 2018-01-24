@@ -50,8 +50,8 @@ class Juhe extends Handler
 	{
 		$params = [
 			'mobile'	=> $messager->getMobilePhone(),
-			'tpl_id'	=> $message->getTemplate(),
-			'tpl_value'	=> $this->formatTemplateData($message->getData()),
+			'tpl_id'	=> $messager->getTemplate(),
+			'tpl_value'	=> $this->formatTemplateData($messager->getData()),
 			'dtype'		=> static::REQUEST_FORMAT,
 			'key'		=> Arrays::get($this->config, 'app_key'),
 		];
