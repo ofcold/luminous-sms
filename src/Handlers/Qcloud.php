@@ -40,7 +40,6 @@ class Qcloud extends Handler
 	 *
 	 *	The current drive service providers to implement push information content.
 	 *
-	 *	@param		int|string		$to
 	 *	@param		\AnomalyLab\LuminousSMS\Contracts\MessagerInterface		$messager
 	 *
 	 *	@return		array
