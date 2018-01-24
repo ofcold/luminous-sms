@@ -120,12 +120,24 @@ class Messenger implements MessagerInterface
 	}
 
 	/**
-	 *	Return the template id of message.
+	 *	Return the template id of messager.
 	 *
 	 *	@return		string
 	 */
 	public function getTemplate(): string
 	{
 		return $this->template;
+	}
+
+	/**
+	 *	Set the template id of messager.
+	 *
+	 *	@return		string
+	 */
+	public function setTemplate(string $template) : MessagerInterface
+	{
+		$this->template = $template;
+
+		return $this;
 	}
 }
