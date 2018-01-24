@@ -30,6 +30,13 @@ class Yunpian extends Handler
 	protected $name = 'yunpian';
 
 	/**
+	 *	Remove Yunpian SMS push does not support methods.
+	 *
+	 *	@var		array
+	 */
+	protected $removeMethods = ['voice', 'text_many', 'template_id'];
+
+	/**
 	 *	Seed message.
 	 *
 	 *	The current drive service providers to implement push information content.

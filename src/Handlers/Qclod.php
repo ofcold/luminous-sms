@@ -49,7 +49,7 @@ class Qclod extends Handler
 	 */
 	public function send(MessagerInterface $messager) : array
 	{
-		$params = $this->{$messager->getType()}($messager);
+		$params = $this->{$this->getMethod($messager->getType())}($messager);
 
 		//	Set SMS flag.
 		if ( $sign = $messager->getSign() )

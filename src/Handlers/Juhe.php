@@ -28,6 +28,13 @@ class Juhe extends Handler
 	protected $name = 'juhe';
 
 	/**
+	 *	Remove Juhe SMS push does not support methods.
+	 *
+	 *	@var		array
+	 */
+	protected $removeMethods = ['voice', 'text_many', 'template_id'];
+
+	/**
 	 *	Seed message.
 	 *
 	 *	The current drive service providers to implement push information content.
