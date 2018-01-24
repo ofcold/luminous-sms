@@ -98,14 +98,15 @@ class Qclod extends Handler
 	protected function voice(MessagerInterface $messager) : array
 	{
 		return [
-			'tel'	=> [
+			'tel'			=> [
 				'nationcode'	=> $messager->getCode(),
 				'mobile'		=> $messager->getMobilePhone()
 			],
-			'msg'		=> $messager->getContent(),
-			'playtimes'	=> 2,
-			'time'		=> time(),
-			'ext'		=> ''
+			'promptfile'	=> $messager->getContent(),
+			'prompttype'	=> 2,
+			'playtimes'		=> 2,
+			'time'			=> time(),
+			'ext'			=> ''
 		];
 	}
 
