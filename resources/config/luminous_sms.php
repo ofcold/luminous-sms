@@ -9,16 +9,16 @@ return [
 	 *
 	 *	@var		string
 	 */
-	'default_handler'		=> 'qclod',
+	'default_handler'		=> 'qcloud',
 
 	'supported'		=> [
 
 		/**
-		 *	Tencent qclod handler.
+		 *	Tencent qcloud handler.
 		 *
 		 *	@var		array
 		 */
-		'qclod'		=> [
+		'qcloud'		=> [
 
 			//	The app key
 			'app_key'			=> 'app key',

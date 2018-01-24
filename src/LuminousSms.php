@@ -6,7 +6,7 @@ use Closure;
 use InvalidArgumentException;
 use AnomalyLab\LuminousSMS\Support\Configure;
 use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
-use AnomalyLab\LuminousSMS\Handlers\Qclod;
+use AnomalyLab\LuminousSMS\Handlers\Qcloud;
 use AnomalyLab\LuminousSMS\Handlers\Yunpian;
 use AnomalyLab\LuminousSMS\Handlers\Juhe;
 
@@ -33,7 +33,7 @@ class LuminousSMS
 	 *	@var		array
 	 */
 	protected $handlers = [
-		'qclod'		=> Qclod::class,
+		'qcloud'		=> Qcloud::class,
 		'yunpian'	=> Yunpian::class,
 		'juhe'		=> Juhe::class
 	];

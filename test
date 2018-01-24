@@ -3,20 +3,18 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+
 use AnomalyLab\LuminousSMS\LuminousSMS;
-use AnomalyLab\LuminousSMS\RandomNumber;
-use AnomalyLab\LuminousSMS\Support\Configure;
 
 $sms = (new LuminousSMS)
 	->setConfig(include __DIR__ . '/resources/config/luminous_sms.php');
 
-$sms->sender(function($messager) {
+$result = $sms->sender(function($messager) {
 	$messager
-		->setMobilePhone('18520863905')
-		->setContent('{name},您的验证码是{code}, 验证码将在{time}分钟后失效！请及时使用。')
-		->setData([
-			'name'	=> 'Hello',
-			'code'	=> rand(100000, 999999),
-			'time'	=> 10
-		]);
+		->setMobilePhone('18898726543')
+		//->setType(AnomalyLab\LuminousSMS\Contracts\MessagerInterface::VOICE_MESSAGE)
+		->setContent('您的验证码是{code}, 验证码将在2分钟后失效！请及时使用。')
+		->setData(['code'	=> rand(1000, 9999)]);
 });
+
+var_dump($result);

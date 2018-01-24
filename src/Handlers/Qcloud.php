@@ -8,14 +8,14 @@ use AnomalyLab\LuminousSMS\Support\Arrays;
 use AnomalyLab\LuminousSMS\Support\Stringy;
 
 /**
- *	Class Qclod
+ *	Class Qcloud
  *
  *	@link			https://anomaly.ink
  *	@author			Anomaly lab, Inc <support@anomaly.ink>
  *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Handlers\Qclod
+ *	@package		AnomalyLab\LuminousSMS\Handlers\Qcloud
  */
-class Qclod extends Handler
+class Qcloud extends Handler
 {
 	protected const REQUEST_URL = 'https://yun.tim.qq.com/v5/';
 
@@ -33,7 +33,7 @@ class Qclod extends Handler
 	 *
 	 *	@var		string
 	 */
-	protected $name = 'qclod';
+	protected $name = 'qcloud';
 
 	/**
 	 *	Seed message.
