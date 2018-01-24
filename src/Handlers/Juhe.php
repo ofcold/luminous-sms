@@ -4,7 +4,7 @@ namespace AnomalyLab\LuminousSMS\Handlers;
 
 use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
-use AnomalyLab\LuminousSMS\Support\Configure;
+use AnomalyLab\LuminousSMS\Support\Arrays;
 
 /**
  *	Class Juhe
@@ -46,14 +46,14 @@ class Juhe extends Handler
 			'tpl_id'	=> $message->getTemplate(),
 			'tpl_value'	=> $this->formatTemplateData($message->getData()),
 			'dtype'		=> static::REQUEST_FORMAT,
-			'key'		=> Configure::get($this->config, 'app_key'),
+			'key'		=> Arrays::get($this->config, 'app_key'),
 		];
 
 		$result = $this->get(static::REQUEST_URL, $params);
 
 		if ( $result['error_code'] )
 		{
-			throw new GatewayErrorException($result['reason'], $result['error_code'], $result);
+			throw new HandlerBadException($result['reason'], $result['error_code'], $result);
 		}
 
 		return $result;

@@ -4,7 +4,7 @@ namespace AnomalyLab\LuminousSMS\Handlers;
 
 use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
-use AnomalyLab\LuminousSMS\Support\Configure;
+use AnomalyLab\LuminousSMS\Support\Arrays;
 
 /**
  *	Class Yunpian
@@ -45,9 +45,16 @@ class Yunpian extends Handler
 	{
 		$result = $this->post(
 			//	Build request url.
-			sprintf(self::ENDPOINT_TEMPLATE, 'sms', self::ENDPOINT_VERSION, 'sms', 'single_send', self::ENDPOINT_FORMAT),
+			sprintf(
+				static::ENDPOINT_TEMPLATE,
+				'sms',
+				static::ENDPOINT_VERSION,
+				'sms',
+				'single_send',
+				static::ENDPOINT_FORMAT
+			),
 			[
-				'apikey'	=> Configure::get($this->config, 'api_key'),
+				'apikey'	=> Arrays::get($this->config, 'api_key'),
 				'mobile'	=> $messager->getMobilePhone(),
 				'text'		=> $message->getContent(),
 			]

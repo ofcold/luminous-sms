@@ -4,7 +4,8 @@ namespace AnomalyLab\LuminousSMS\Handlers;
 
 use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
 use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
-use AnomalyLab\LuminousSMS\Support\Configure;
+use AnomalyLab\LuminousSMS\Support\Arrays;
+use AnomalyLab\LuminousSMS\Support\Stringy;
 
 /**
  *	Class Qclod
@@ -57,7 +58,7 @@ class Qclod extends Handler
 			'ext'		=> ''
 		];
 
-		$random = Configure::random(10);
+		$random = Stringy::random(10);
 
 		$params['sig'] = $this->generateSign($params, $random);
 
@@ -67,7 +68,7 @@ class Qclod extends Handler
 				'%s%s?sdkappid=%s&random=%s',
 				static::REQUEST_URL,
 				static::REQUEST_METHOD,
-				Configure::get($this->config, 'app_id'),
+				Arrays::get($this->config, 'app_id'),
 				$random
 			),
 			[
@@ -100,7 +101,7 @@ class Qclod extends Handler
 		return hash(
 			'sha256',
 			sprintf('appkey=%s&random=%s&time=%s&mobile=%s',
-			Configure::get($this->config, 'app_key'),
+			Arrays::get($this->config, 'app_key'),
 			$random,
 			$params['time'],
 			$params['tel']['mobile']),
