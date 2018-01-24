@@ -14,6 +14,8 @@ use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
  */
 class Messenger implements MessagerInterface
 {
+	protected $sign;
+
 	protected $type;
 
 	protected $code;
@@ -25,6 +27,18 @@ class Messenger implements MessagerInterface
 	protected $parserData = [];
 
 	protected $mobilePhone;
+
+	public function getSign() : string
+	{
+		return $this->sign;
+	}
+
+	public function setSign(string $sign) : MessagerInterface
+	{
+		$this->sign = $sign;
+
+		return $this;
+	}
 
 	public function getType()
 	{

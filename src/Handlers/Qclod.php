@@ -51,6 +51,12 @@ class Qclod extends Handler
 	{
 		$params = $this->{$messager->getType()}($messager);
 
+		//	Set SMS flag.
+		if ( $sign = $messager->getSign() )
+		{
+			$params['sign']	= $sign;
+		}
+
 		$random = Stringy::random(10);
 
 		$params['sig'] = $this->generateSign($params, $random);
