@@ -50,7 +50,7 @@ abstract class Handler implements HandlerInterface
 		'voice'			=> 'voice',
 		'text'			=> 'text',
 		'text_many'		=> 'textMany',
-		'template_id'	=> 'templateId'
+		'template'		=> 'template'
 	];
 
 	/**
