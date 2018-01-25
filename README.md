@@ -87,7 +87,7 @@ A message to support multi-platform send, each sent in a different way, but we a
 
 ## Platform configuration instructions
 
-#### [云片](https://www.yunpian.com)
+###### [云片](https://www.yunpian.com)
 
 ```php
     'yunpian' => [
@@ -95,7 +95,7 @@ A message to support multi-platform send, each sent in a different way, but we a
     ],
 ```
 
-#### [腾讯云 SMS](https://cloud.tencent.com/product/sms)
+###### [腾讯云 SMS](https://cloud.tencent.com/product/sms)
 
 ```php
     'qcloud' => [
@@ -104,7 +104,7 @@ A message to support multi-platform send, each sent in a different way, but we a
     ],
 ```
 
-#### [聚合数据](https://www.juhe.cn)
+###### [聚合数据](https://www.juhe.cn)
 
 ```php
     'juhe' => [
@@ -113,7 +113,7 @@ A message to support multi-platform send, each sent in a different way, but we a
 ```
 
 
-#### [阿里大鱼](https://www.alidayu.cn)
+######[阿里大鱼](https://www.alidayu.cn)
 
 ```php
     'alidayu' => [
@@ -123,7 +123,7 @@ A message to support multi-platform send, each sent in a different way, but we a
     ],
 ```
 
-#### [百度云](https://cloud.baidu.com/)
+###### [百度云](https://cloud.baidu.com/)
 
 ```php
     'baidu' => [
@@ -133,6 +133,45 @@ A message to support multi-platform send, each sent in a different way, but we a
         'domain'	=> '',
     ],
 ```
+
+## API
+
+```php
+	AnomalyLab\LuminousSMS\LuminousSMS
+```
+
+##### sender(callable | array $callback, null|string $handler)
+
+###### Arguments
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Required</th>
+			<th>Type</th>
+			<th>Default</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>$callback</td>
+			<td>true</td>
+			<td>callable | array</td>
+			<td>none</td>
+			<td>Send information data, AnomalyLab\LuminousSMS\Messenger::class</td>
+		</tr>
+
+		<tr>
+			<td>$handler</td>
+			<td>false</td>
+			<td>null | string</td>
+			<td>qcloud</td>
+			<td>Send the drive settings using SMS. We will default to Tencent cloud sms.</td>
+		</tr>
+	</tbody>
+</table>
 
 ## License
 
