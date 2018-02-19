@@ -11,6 +11,7 @@ use AnomalyLab\LuminousSMS\{
 	Handlers\Yunpian,
 	Handlers\Juhe,
 	Handlers\Alidayu,
+	Handlers\Sendcloud,
 	Handlers\Baidu
 };
 
@@ -41,7 +42,8 @@ class LuminousSMS
 		'yunpian'	=> Yunpian::class,
 		'alidayu'	=> Alidayu::class,
 		'baidu'		=> Baidu::class,
-		'juhe'		=> Juhe::class
+		'juhe'		=> Juhe::class,
+		'sendcloud'	=> Sendcloud::class
 	];
 
 	/**
