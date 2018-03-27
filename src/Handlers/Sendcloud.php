@@ -17,8 +17,6 @@ use AnomalyLab\LuminousSMS\Support\Stringy;
  */
 class Sendcloud extends Handler
 {
-	use HasHttpRequest;
-
 	const REQUEST_TEMPLATE = 'http://www.sendcloud.net/smsapi/%s';
 
 	/**
