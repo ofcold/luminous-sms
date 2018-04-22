@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/anomalylab/luminous-sms/raw/master/sms.svg?sanitize=true"></p>
+<p align="center"><img src="https://github.com/ofcold/luminous-sms/raw/master/sms.svg?sanitize=true"></p>
 A powerful international SMS push.
 
 ## Features
@@ -22,16 +22,16 @@ A powerful international SMS push.
 ## Intalling
 
 ```shell
-$ composer require anomalylab/luminous-sms
+$ composer require ofcold/luminous-sms
 ```
 
 ## Usage
 
 ```php
-	
-use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
 
-$sms = (new AnomalyLab\LuminousSMS\LuminousSms)
+use Ofcold\LuminousSMS\Contracts\MessagerInterface;
+
+$sms = (new Ofcold\LuminousSMS\LuminousSms)
 	->setConfig([
 	'default_handler'		=> 'qcloud',
 	'supported'		=> [
@@ -54,7 +54,7 @@ $sms->sender(function($messager) {
 	$messager
 		->setMobilePhone('18898726543')
 		//	Use voice.
-		->setType(AnomalyLab\LuminousSMS\Contracts\MessagerInterface::VOICE_MESSAGE)
+		->setType(Ofcold\LuminousSMS\Contracts\MessagerInterface::VOICE_MESSAGE)
 		->setContent('{name},您的验证码是{code}, 验证码将在{time}分钟后失效！请及时使用。')
 		->setData([
 			'name'	=> 'Hello',
@@ -137,7 +137,7 @@ A message to support multi-platform send, each sent in a different way, but we a
 ## API
 
 ```php
-	AnomalyLab\LuminousSMS\LuminousSMS
+	Ofcold\LuminousSMS\LuminousSMS
 ```
 
 ##### sender(callable | array $callback, null|string $handler)
@@ -160,7 +160,7 @@ A message to support multi-platform send, each sent in a different way, but we a
 			<td>true</td>
 			<td>callable | array</td>
 			<td>none</td>
-			<td>Send information data, AnomalyLab\LuminousSMS\Messenger::class</td>
+			<td>Send information data, Ofcold\LuminousSMS\Messenger::class</td>
 		</tr>
 
 		<tr>

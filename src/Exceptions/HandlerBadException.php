@@ -1,20 +1,20 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Exceptions;
+namespace Ofcold\LuminousSMS\Exceptions;
 
 use Exception;
 
 /**
  *	Class HandlerBadException
  *
- *	@link			https://anomaly.ink
+ *	@link			https://ofcold.com
  *
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
  *
- *	@package		AnomalyLab\LuminousSMS\Exceptions\HandlerBadException
+ *	@package		Ofcold\LuminousSMS\Exceptions\HandlerBadException
  */
 class HandlerBadException extends Exception
 {
-  
+
 }

@@ -1,16 +1,18 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Support;
+namespace Ofcold\LuminousSMS\Support;
 
 use Closure;
 
 /**
  *	Class Helpers
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Support\Helpers
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Support\Helpers
  */
 class Helpers
 {

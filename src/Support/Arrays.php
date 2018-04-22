@@ -1,6 +1,6 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Support;
+namespace Ofcold\LuminousSMS\Support;
 
 use Closure;
 use ArrayAccess;
@@ -8,10 +8,12 @@ use ArrayAccess;
 /**
  *	Class Arrays
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Support\Arrays
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Support\Arrays
  */
 class Arrays
 {

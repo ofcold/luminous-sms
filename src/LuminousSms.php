@@ -1,10 +1,10 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS;
+namespace Ofcold\LuminousSMS;
 
 use Closure;
 use InvalidArgumentException;
-use AnomalyLab\LuminousSMS\{
+use Ofcold\LuminousSMS\{
 	Support\Configure,
 	Contracts\HandlerInterface,
 	Handlers\Qcloud,
@@ -18,17 +18,19 @@ use AnomalyLab\LuminousSMS\{
 /**
  *	Class LuminousSMS
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\LuminousSMS
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\LuminousSMS
  */
 class LuminousSMS
 {
 	/**
 	 *	The Messenger instance.
 	 *
-	 *	@var		\AnomalyLab\LuminousSMS\Messenger
+	 *	@var		\Ofcold\LuminousSMS\Messenger
 	 */
 	protected $messenger;
 
@@ -104,7 +106,7 @@ class LuminousSMS
 	/**
 	 *	Return Messenger instance.
 	 *
-	 *	@return		\AnomalyLab\LuminousSMS\Messenger
+	 *	@return		\Ofcold\LuminousSMS\Messenger
 	 */
 	public function getMessenger()
 	{
@@ -129,7 +131,7 @@ class LuminousSMS
 		{
 			$this->setConfig();
 		}
-		
+
 		return $this;
 	}
 
@@ -138,9 +140,9 @@ class LuminousSMS
 	 *
 	 *	@param		string		$name
 	 *
-	 *	@return		\AnomalyLab\LuminousSMS\Contracts\HandlerInterface
+	 *	@return		\Ofcold\LuminousSMS\Contracts\HandlerInterface
 	 *
-	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\InvalidArgumentException
+	 *	@throws		\Ofcold\LuminousSMS\Exceptions\InvalidArgumentException
 	 */
 	protected function makeHandler(string $name) : HandlerInterface
 	{

@@ -1,16 +1,18 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS;
+namespace Ofcold\LuminousSMS;
 
-use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
+use Ofcold\LuminousSMS\Contracts\MessagerInterface;
 
 /**
  *	Class Messenger
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Messenger
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Messenger
  */
 class Messenger implements MessagerInterface
 {

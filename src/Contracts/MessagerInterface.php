@@ -1,14 +1,16 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Contracts;
+namespace Ofcold\LuminousSMS\Contracts;
 
 /**
  *	Interface MessagerInterface
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Contracts\MessagerInterface
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Contracts\MessagerInterface
  */
 interface MessagerInterface
 {

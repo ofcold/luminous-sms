@@ -1,6 +1,6 @@
 <?php
 
-use AnomalyLab\LuminousSMS\Tests;
+use Ofcold\LuminousSMS\Tests;
 
 use Mockery;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;

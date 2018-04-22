@@ -1,18 +1,20 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Handlers;
+namespace Ofcold\LuminousSMS\Handlers;
 
-use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
-use AnomalyLab\LuminousSMS\Contracts\MessagerInterface;
-use AnomalyLab\LuminousSMS\Support\Arrays;
+use Ofcold\LuminousSMS\Exceptions\HandlerBadException;
+use Ofcold\LuminousSMS\Contracts\MessagerInterface;
+use Ofcold\LuminousSMS\Support\Arrays;
 
 /**
  *	Class Baidu
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Handlers\Baidu
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Handlers\Baidu
  */
 class Baidu extends Handler
 {
@@ -30,7 +32,7 @@ class Baidu extends Handler
 	protected const BCE_AUTH_VERSION = 'bce-auth-v1';
 
 	protected const DEFAULT_EXPIRATION_IN_SECONDS = 1800; //签名有效期默认1800秒
-	
+
 	protected const SUCCESS_CODE = 1000;
 
 	/**
@@ -38,11 +40,11 @@ class Baidu extends Handler
 	 *
 	 *	The current drive service providers to implement push information content.
 	 *
-	 *	@param		\AnomalyLab\LuminousSMS\Contracts\MessagerInterface		$messager
+	 *	@param		\Ofcold\LuminousSMS\Contracts\MessagerInterface		$messager
 	 *
 	 *	@return		array
 	 *
-	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
+	 *	@throws		\Ofcold\LuminousSMS\Exceptions\HandlerBadException;
 	 */
 	public function send(MessagerInterface $messager) : array
 	{

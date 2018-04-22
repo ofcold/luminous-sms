@@ -1,18 +1,20 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Handlers;
+namespace Ofcold\LuminousSMS\Handlers;
 
-use AnomalyLab\LuminousSMS\Exceptions\HandlerBadException;
-use AnomalyLab\LuminousSMS\Traits\HttpRequest;
-use AnomalyLab\LuminousSMS\Contracts\HandlerInterface;
+use Ofcold\LuminousSMS\Exceptions\HandlerBadException;
+use Ofcold\LuminousSMS\Traits\HttpRequest;
+use Ofcold\LuminousSMS\Contracts\HandlerInterface;
 
 /**
  *	Class Handler
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Handlers\Handler
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Handlers\Handler
  */
 abstract class Handler implements HandlerInterface
 {
@@ -86,7 +88,7 @@ abstract class Handler implements HandlerInterface
 	 *
 	 *	@return		string
 	 *
-	 *	@throws		\AnomalyLab\LuminousSMS\Exceptions\HandlerBadException
+	 *	@throws		\Ofcold\LuminousSMS\Exceptions\HandlerBadException
 	 */
 	public function getMethod(string $method) : string
 	{

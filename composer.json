@@ -11,7 +11,7 @@
 	"authors": [
 		{
 			"name": "bill li",
-			"email": "bill.li@anomaly.ink"
+			"email": "bill.li@ofcold.com"
 		}
 	],
 	"require": {
@@ -25,12 +25,12 @@
 	    },
 	"autoload": {
 		"psr-4": {
-			"AnomalyLab\\LuminousSMS\\": "src/"
+			"Ofcold\\LuminousSMS\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"AnomalyLab\\LuminousSMS\\Tests\\": "tests/"
+			"Ofcold\\LuminousSMS\\Tests\\": "tests/"
 		}
 	}
 }

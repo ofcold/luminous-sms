@@ -1,6 +1,6 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Traits;
+namespace Ofcold\LuminousSMS\Traits;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
@@ -8,10 +8,12 @@ use Psr\Http\Message\ResponseInterface;
 /**
  *	Trait HttpRequest
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Traits\HttpRequest
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Traits\HttpRequest
  */
 trait HttpRequest
 {

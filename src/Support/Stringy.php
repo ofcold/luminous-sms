@@ -1,15 +1,17 @@
 <?php
 
-namespace AnomalyLab\LuminousSMS\Support;
+namespace Ofcold\LuminousSMS\Support;
 
 
 /**
  *	Class Stringy
  *
- *	@link			https://anomaly.ink
- *	@author			Anomaly lab, Inc <support@anomaly.ink>
- *	@author			Bill Li <bill@anomaly.ink>
- *	@package		AnomalyLab\LuminousSMS\Support\Stringy
+ *	@link			https://ofcold.com
+ *
+ *	@author			Ofcold, Inc <support@ofcold.com>
+ *	@author			Bill Li <bill.li@ofcold.com>
+ *
+ *	@package		Ofcold\LuminousSMS\Support\Stringy
  */
 class Stringy
 {
