@@ -1,192 +1,143 @@
 <?php
 
-namespace Ofcold\LuminousSMS;
-
-use Closure;
-use InvalidArgumentException;
-use Ofcold\LuminousSMS\{
-	Support\Configure,
-	Contracts\HandlerInterface,
-	Handlers\Qcloud,
-	Handlers\Yunpian,
-	Handlers\Juhe,
-	Handlers\Alidayu,
-	Handlers\Sendcloud,
-	Handlers\Baidu
-};
+use Ofcold\LuminousSMS\Contracts\MessageInterface;
 
 /**
- *	Class LuminousSMS
+ * Class LuminousSms
  *
- *	@link			https://ofcold.com
+ * @link  https://ofcold.com
+ * @link  https://ofcold.com/license
  *
- *	@author			Ofcold, Inc <support@ofcold.com>
- *	@author			Bill Li <bill.li@ofcold.com>
+ * @author  Ofcold <support@ofcold.com>
+ * @author  Olivia Fu <olivia@ofcold.com>
+ * @author  Bill Li <bill.li@ofcold.com>
  *
- *	@package		Ofcold\LuminousSMS\LuminousSMS
+ * @package  Ofcold\LuminousSMS\LuminousSms
+ *
+ * @copyright  Copyright (c) 2017-2018, Ofcold. All rights reserved.
  */
-class LuminousSMS
+class LuminousSms
 {
-	/**
-	 *	The Messenger instance.
-	 *
-	 *	@var		\Ofcold\LuminousSMS\Messenger
-	 */
-	protected $messenger;
+	protected static $handlers = [];
 
 	/**
-	 *	The default handlers handler.
+	 * The configuration items.
 	 *
-	 *	@var		array
+	 * @var arary
 	 */
-	protected $handlers = [
-		'qcloud'	=> Qcloud::class,
-		'yunpian'	=> Yunpian::class,
-		'alidayu'	=> Alidayu::class,
-		'baidu'		=> Baidu::class,
-		'juhe'		=> Juhe::class,
-		'sendcloud'	=> Sendcloud::class
-	];
+	protected $config;
 
 	/**
-	 *	Implement SMS push.
+	 * the Message instance.
 	 *
-	 *	@param		callable|array		$callback
-	 *	@param		string|null			$handler
-	 *
-	 *	@return		mixed
+	 * @var Message
 	 */
+	protected $message;
+
+	/**
+	 * Create an new LuminousSms instance.
+	 *
+	 * @param array $config
+	 */
+	public function __construct(array $config)
+	{
+		$this->config = $config;
+	}
+
 	public function sender($callback, ?string $handler = null)
 	{
-		//	@var Messenger
-		$messenger = $this->getMessenger();
+		$message = $this->getMessage();
 
-		// //	Check the parameters and throw an exception!
-		// if ( !($callback instanceof Closure) || !is_array($callback) )
-		// {
-		// 	throw new InvalidArgumentException(
-		// 		'The first parameter to send the message must be an array or callable.'
-		// 	);
-		// }
-
-		is_array($callback)
-			? array_walk_recursive($callback, function($value, $slug) use($messenger) {
-
-				$method = 'set' . ucfirst($slug);
-
-				if ( method_exists($messenger, $method) )
-				{
-					$messenger->$method($value);
-				}
-			})
-			: $callback($messenger);
-
-		$smsHandler = $handler !== null
-			 ? $this->makeHandler($handler)
-			 : $this->getDefaultHandler();
-
-		return $smsHandler->send($messenger);
-	}
-
-	/**
-	 *	Set global configuration information.
-	 *
-	 *	@param		mixed		$key
-	 *	@param		mixed		$val
-	 *
-	 *	@return		$this
-	 */
-	public function setConfig(array $items) : self
-	{
-		Configure::setItems($items);
-
-		return $this;
-	}
-
-	/**
-	 *	Return Messenger instance.
-	 *
-	 *	@return		\Ofcold\LuminousSMS\Messenger
-	 */
-	public function getMessenger()
-	{
-		return $this->messenger ?: $this->messenger = new Messenger($this);
-	}
-
-	public function getDefaultHandler()
-	{
-		return $this->makeHandler(Configure::item('default_handler'));
-	}
-
-	/**
-	 *	Set default handler name.
-	 *
-	 *	@param		string		$name
-	 *
-	 *	@return		$this
-	 */
-	public function setDefaultHandler(string $name) : self
-	{
-		if ( $this->handlerExists($name) )
+		switch (true)
 		{
-			$this->setConfig();
+			case is_callable($callback):
+					$callback($message);
+				break;
+
+			case is_array($callback):
+					new MessageHydrator($message, $callback);
+				break;
+
+			default:
+					throw new InvalidArgumentException('The [1] parameter only supports arrays or closures');
+				break;
 		}
 
-		return $this;
+		$handler = $this->createHandler($handler);
+
+		return $handler->send($message);
 	}
 
 	/**
-	 *	Make handler and configure basic information.
+	 * Get the message instance.
 	 *
-	 *	@param		string		$name
-	 *
-	 *	@return		\Ofcold\LuminousSMS\Contracts\HandlerInterface
-	 *
-	 *	@throws		\Ofcold\LuminousSMS\Exceptions\InvalidArgumentException
+	 * @return MessageInterface
 	 */
-	protected function makeHandler(string $name) : HandlerInterface
+	public function getMessage() : MessageInterface
 	{
-		$handler = $this->getHandler($name);
+		return $this->message ?: new Message;
+	}
 
-		$handler = (new $handler)
-			->setConfig(Configure::item('supported.' . $name));
-
-		if ( !($handler instanceof HandlerInterface) )
+	/**
+	 * Create a new handler instance.
+	 *
+	 * @param  string|null $handler
+	 *
+	 * @return HandlersInterface
+	 *
+	 * @throws InvalidArgumentException
+	 */
+	public function createHandler(?string $handler = null) : HandlersInterface
+	{
+		if ( !$this->handlerExists($handler) || is_null($handler) )
 		{
-			throw new InvalidArgumentException(
-				sprintf('Handler "%s" not inherited from %s.', $name, HandlerInterface::class)
-			);
+			$handler = $this->getDefaultHandler();
 		}
 
-		return $handler;
-	}
+		$method = 'create' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $handler))) . 'Handler';
 
-	/**
-	 *	Check handlers for existence.
-	 *
-	 *	@param		string		$name
-	 *
-	 *	@return		bool
-	 */
-	protected function handlerExists(string $name) : bool
-	{
-		return isset($this->handlers[$name]) && Configure::hasItem('supported.' . $name);
-	}
-
-	/**
-	 *	Get the handlers name.
-	 *
-	 *	@param		string		$name
-	 *
-	 *	@return		string
-	 */
-	protected function getHandler(string $name) : string
-	{
-		if ( ! $this->handlerExists($name)  )
+		if ( method_exists($this, $method) )
 		{
-			throw new InvalidArgumentException(sprintf('The handler: "%s" you are using does not exist.', $name));
+			return $this->$method;
 		}
 
-		return $this->handlers[$name];
+		throw new InvalidArgumentException("Handler [$handler] not supported.");
+	}
+
+	/**
+	 * Get the Qcloud handler instance.
+	 *
+	 * @return HandlersInterface
+	 */
+	protected function getQcloudHandler() : HandlersInterface
+	{
+		return new Qcloud($this->config['supported']['qcloud']);
+	}
+
+	/**
+	 * Get the default handler name.
+	 *
+	 * @return string
+	 */
+	protected function getDefaultHandler() : string
+	{
+		if ( $this->handlerExists($default = $this->config['supported']['default_handler']) )
+		{
+			return $default;
+		}
+
+		return 'qcloud';
+	}
+
+	/**
+	 * Checks if the used handler is supported.
+	 *
+	 * @param  string $handler
+	 *
+	 * @return boolean
+	 */
+	protected function handlerExists(string $handler) : bool
+	{
+		return isset($this->config['supported'][$handler]);
 	}
 }
