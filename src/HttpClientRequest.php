@@ -119,7 +119,7 @@ trait HttpClientRequest
 		$contentType = $response->getHeaderLine('Content-Type');
 		$contents = $response->getBody()->getContents();
 
-		if ( false !== stripos($contentType, 'json') || stripos($contentType, 'javascript') )
+		if ( false !== stripos($contentType, 'json') || stripos($contentType, 'javascript') || $contentType == '' )
 		{
 			return json_decode($contents, true);
 		}
