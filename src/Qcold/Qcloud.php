@@ -40,6 +40,9 @@ class Qcloud extends Handlers
 			'edit'		=> 'tlssmssvr/mod_sign',
 			'remove'	=> 'tlssmssvr/del_sign',
 			'query'		=> 'tlssmssvr/get_sign'
+		],
+		'tatol'	=> [
+			'sender'	=> 'tlssmssvr/pullsendstatus'
 		]
 	];
 
