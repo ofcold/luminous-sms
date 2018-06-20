@@ -19,11 +19,59 @@ namespace Ofcold\LuminousSMS\Contracts;
 interface HandersInterface
 {
 	/**
-	 * Send SMS.
+	 * Get the Message instance.
 	 *
-	 * @param  MessageInterface $message
+	 * @return MessageInterface
+	 */
+	public function getMessage() : MessageInterface;
+
+	/**
+	 * Set the config items.
+	 *
+	 * @param array $config
+	 *
+	 * @return $this
+	 */
+	public function setConfig(array $config);
+
+	/**
+	 * Get the config item.
+	 *
+	 * @param  string $key
 	 *
 	 * @return mixed
 	 */
-	public function seed(MessageInterface $message);
+	public function getConfig(string $key);
+
+	/**
+	 * Get config items.
+	 *
+	 * @return array
+	 */
+	public function getConfigs() : array;
+
+	/**
+	 * Return timeout.
+	 *
+	 * @return  float
+	 */
+	public function getTimeout() : float;
+
+	/**
+	 * Set the timeout.
+	 *
+	 * @param  float  $timeout
+	 */
+	public function setTimeout(float $timeout);
+
+	/**
+	 * Send SMS to send.
+	 *
+	 * The current drive service providers to implement push information content.
+	 *
+	 * @return array
+	 *
+	 * @throws \Ofcold\LuminousSMS\Exceptions\HandlerBadException;
+	 */
+	public function send() : array;
 }

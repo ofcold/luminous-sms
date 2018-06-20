@@ -1,11 +1,11 @@
 <?php
 
-namespace Ofcold\LuminousSMS\Qcold;
+namespace Ofcold\LuminousSMS\Exceptions;
 
-use Ofcold\LuminousSMS\Handlers;
+use Exception;
 
 /**
- * Class QcloudHandler
+ * Class HandlerBadException
  *
  * @link  https://ofcold.com
  * @link  https://ofcold.com/license
@@ -14,11 +14,11 @@ use Ofcold\LuminousSMS\Handlers;
  * @author  Olivia Fu <olivia@ofcold.com>
  * @author  Bill Li <bill.li@ofcold.com>
  *
- * @package  Ofcold\LuminousSMS\Qcold\QcloudHandler
+ * @package  Ofcold\LuminousSMS\Exceptions\HandlerBadException
  *
  * @copyright  Copyright (c) 2017-2018, Ofcold. All rights reserved.
  */
-class QcloudHandler extends Handlers
+class HandlerBadException extends Exception
 {
 
 }

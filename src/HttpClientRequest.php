@@ -22,6 +22,24 @@ use Psr\Http\Message\ResponseInterface;
 trait HttpClientRequest
 {
 	/**
+	 * Make a http request.
+	 *
+	 * @param  string  $method
+	 * @param  string  $endpoint
+	 * @param  array  $options  http://docs.guzzlephp.org/en/latest/request-options.html
+	 *
+	 * @return  mixed
+	 */
+	public function request(string $method, string $endpoint, array $options = [])
+	{
+		return $this->unwrapResponse(
+			$this
+				->getHttpClient($this->getBasicOptions())
+				->{$method}($endpoint, $options)
+		);
+	}
+
+	/**
 	 * Make a get request.
 	 *
 	 * @param  string  $endpoint
@@ -64,24 +82,6 @@ trait HttpClientRequest
 	}
 
 	/**
-	 * Make a http request.
-	 *
-	 * @param  string  $method
-	 * @param  string  $endpoint
-	 * @param  array  $options  http://docs.guzzlephp.org/en/latest/request-options.html
-	 *
-	 * @return  mixed
-	 */
-	protected function request(string $method, string $endpoint, array $options = [])
-	{
-		return $this->unwrapResponse(
-			$this
-				->getHttpClient($this->getBasicOptions())
-				->{$method}($endpoint, $options)
-		);
-	}
-
-	/**
 	 * Return base Guzzle options.
 	 *
 	 * @return  array
@@ -119,7 +119,7 @@ trait HttpClientRequest
 		$contentType = $response->getHeaderLine('Content-Type');
 		$contents = $response->getBody()->getContents();
 
-		if ( false !== stripos($contentType, 'json') || stripos($contentType, 'javascript') )
+		if ( false !== stripos($contentType, 'json') || stripos($contentType, 'javascript') || $contentType == '' )
 		{
 			return json_decode($contents, true);
 		}

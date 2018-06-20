@@ -1,5 +1,9 @@
 <?php
 
+namespace Ofcold\LuminousSMS\Exceptions;
+
+use Exception;
+
 /**
  * Class MethodNotFoundException
  *
@@ -14,7 +18,7 @@
  *
  * @copyright  Copyright (c) 2017-2018, Ofcold. All rights reserved.
  */
-class MethodNotFoundException extends RuntimeException
+class MethodNotFoundException extends Exception
 {
 
 }
