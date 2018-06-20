@@ -10,8 +10,8 @@ use Ofcold\LuminousSMS\Contracts\MessageInterface;
 
 $sms = new LuminousSMS(include __DIR__ . '/resources/config/sms.php');
 
-//	------------------------------------------------------------------------------------------------
-//	Send Message.
+// -------------------------------------------------------------------------------------------------
+// Send Message.
 // $result = $sms->sender(function($messager) {
 // 	$messager
 // 		->setMobilePhone('18898726543')
@@ -22,16 +22,18 @@ $sms = new LuminousSMS(include __DIR__ . '/resources/config/sms.php');
 
 // var_dump($result);
 
-//	------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 
-//	Signature manager
-//	Add
+// Signature manager
+// Add
 //$resuts = $sms->createHandler('qcloud')->getSignature('add', '衣衣布舍');
 //
 // Query
 //$resuts = $sms->createHandler('qcloud')->getSignature('query', [15858, 15859]);
 //
 //	Edit
-$resuts = $sms->createHandler('qcloud')->getSignature('edit', '150986', '你是哪里来');
+//$resuts = $sms->createHandler('qcloud')->getSignature('edit', '150986', '你是哪里来');
+//
+$resuts = $sms->createHandler('qcloud')->getSignature('remove', 150987);
 
 var_dump($resuts);
