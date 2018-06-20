@@ -2,7 +2,10 @@
 
 namespace Ofcold\LuminousSMS;
 
+use InvalidArgumentException;
+use Ofcold\LuminousSMS\Qcold\Qcloud;
 use Ofcold\LuminousSMS\Contracts\MessageInterface;
+use Ofcold\LuminousSMS\Contracts\HandlersInterface;
 
 /**
  * Class LuminousSms
@@ -54,12 +57,8 @@ class LuminousSms
 	 */
 	public function sender($callback, ?string $handler = null)
 	{
-		$message = $this->setMessages($callback);
-
-		$handler = $this->createHandler($handler);
-
-		return $handler
-			->setMessage($message)
+		return $this->createHandler($handler)
+			->setMessage($this->setMessages($callback))
 			->send();
 	}
 
@@ -113,16 +112,16 @@ class LuminousSms
 	 */
 	public function createHandler(?string $handler = null) : HandlersInterface
 	{
-		if ( !$this->handlerExists($handler) || is_null($handler) )
+		if ( ($handler && !$this->handlerExists($handler)) || is_null($handler) )
 		{
 			$handler = $this->getDefaultHandler();
 		}
 
-		$method = 'create' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $handler))) . 'Handler';
+		$method = 'get' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $handler))) . 'Handler';
 
 		if ( method_exists($this, $method) )
 		{
-			return $this->$method;
+			return $this->$method();
 		}
 
 		throw new InvalidArgumentException("Handler [$handler] not supported.");
@@ -146,7 +145,7 @@ class LuminousSms
 	 */
 	protected function getDefaultHandler() : string
 	{
-		if ( $this->handlerExists($default = $this->config['supported']['default_handler']) )
+		if ( $this->handlerExists($default = $this->config['default_handler']) )
 		{
 			return $default;
 		}

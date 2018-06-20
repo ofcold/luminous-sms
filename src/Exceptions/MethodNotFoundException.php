@@ -1,5 +1,9 @@
 <?php
 
+use Ofcold\LuminousSMS\Exceptions;
+
+use RuntimeException;
+
 /**
  * Class MethodNotFoundException
  *
