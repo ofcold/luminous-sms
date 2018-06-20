@@ -42,6 +42,49 @@ class Message implements MessageInterface
 	protected $template;
 
 	/**
+	 * The parser data.
+	 *
+	 * @var array
+	 */
+	protected $parserData = [];
+
+	/**
+	 * Send type for SMS.
+	 *
+	 * @var string
+	 */
+	protected $type;
+
+	/**
+	 * The mobile phone.
+	 *
+	 * @var string
+	 */
+	protected $mobilePhone;
+
+	/**
+	 * Get the code.
+	 *
+	 * @return int
+	 */
+	public function getCode() : int
+	{
+		return $this->code ?: 86;
+	}
+
+	/**
+	 * Set the code.
+	 *
+	 * @param int $code
+	 */
+	public function setCode(int $code) : MessageInterface
+	{
+		$this->code = $code;
+
+		return $this;
+	}
+
+	/**
 	 * Get the sign.
 	 *
 	 * @return string
@@ -85,6 +128,18 @@ class Message implements MessageInterface
 		return $this;
 	}
 
+	public function getMobilePhone() : string
+	{
+		return $this->mobilePhone;
+	}
+
+	public function setMobilePhone(string $mobilePhone) : MessageInterface
+	{
+		$this->mobilePhone = $mobilePhone;
+
+		return $this;
+	}
+
 	/**
 	 * Return message content.
 	 *
@@ -92,7 +147,11 @@ class Message implements MessageInterface
 	 */
 	public function getContent() : string
 	{
-		return $this->content;
+		return (new \StringTemplate\Engine)
+			->render(
+				$this->content,
+				$this->parserData
+			);
 	}
 
 	/**
@@ -115,5 +174,17 @@ class Message implements MessageInterface
 	public function getTemplate(): string
 	{
 		return $this->template;
+	}
+
+	/**
+	 * Set the paser data.
+	 *
+	 * @param array $data
+	 */
+	public function setPaserData(array $data) : MessageInterface
+	{
+		$this->parserData = $data;
+
+		return $this;
 	}
 }
