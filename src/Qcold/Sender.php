@@ -1,7 +1,23 @@
 <?php
 
-use Ofcold\LuminousSMS\Handlers;
+namespace Ofcold\LuminousSMS\Qcold;
 
+use Ofcold\LuminousSMS\Helpers;
+
+/**
+ * Class Sender
+ *
+ * @link  https://ofcold.com
+ * @link  https://ofcold.com/license
+ *
+ * @author  Ofcold <support@ofcold.com>
+ * @author  Olivia Fu <olivia@ofcold.com>
+ * @author  Bill Li <bill.li@ofcold.com>
+ *
+ * @package  Ofcold\LuminousSMS\Qcold\Sender
+ *
+ * @copyright  Copyright (c) 2017-2018, Ofcold. All rights reserved.
+ */
 class Sender
 {
 	/**
@@ -51,14 +67,14 @@ class Sender
 
 		$random = Helpers::random(10);
 
-		$params['sig'] = GenerateSign::make($params, $randomm, $this->qcloud->getConfig('app_key'));
+		$params['sig'] = GenerateSign::make($params, $random, $this->qcloud->getConfig('app_key'));
 
 		$result = $this->qcloud->request(
 			'post',
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
 				Qcloud::REQUEST_URL,
-				Qcloud::REQUEST_METHOD[$this->qcloud->getType()],
+				Qcloud::REQUEST_METHOD[$this->qcloud->getMessage()->getType()],
 				$this->qcloud->getConfig('app_id'),
 				$random
 			),

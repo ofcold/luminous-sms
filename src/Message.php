@@ -49,6 +49,13 @@ class Message implements MessageInterface
 	protected $parserData = [];
 
 	/**
+	 * Send sign for SMS.
+	 *
+	 * @var string
+	 */
+	protected $sign;
+
+	/**
 	 * Send type for SMS.
 	 *
 	 * @var string
@@ -89,7 +96,7 @@ class Message implements MessageInterface
 	 *
 	 * @return string
 	 */
-	public function getSign() : string
+	public function getSign() : ?string
 	{
 		return $this->sign;
 	}

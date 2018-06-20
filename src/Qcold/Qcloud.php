@@ -45,7 +45,7 @@ class Qcloud extends Handlers
 	public const REQUEST_FORMAT = 'json';
 
 	/**
-	 * Seed message.
+	 * Send SMS to send.
 	 *
 	 * The current drive service providers to implement push information content.
 	 *
@@ -53,9 +53,9 @@ class Qcloud extends Handlers
 	 *
 	 * @throws \Ofcold\LuminousSMS\Exceptions\HandlerBadException;
 	 */
-	public function send(MessagerInterface $messager) : array
+	public function send() : array
 	{
-		return (new Qcloud($this))
+		return (new Sender($this))
 			->render();
 	}
 }
