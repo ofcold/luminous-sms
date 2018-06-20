@@ -42,7 +42,7 @@ class LuminousSms
 	 *
 	 * @param array $config
 	 */
-	public function __construct(array $config)
+	public function __construct(array $config = [])
 	{
 		$this->config = $config;
 	}
@@ -60,6 +60,20 @@ class LuminousSms
 		return $this->createHandler($handler)
 			->setMessage($this->setMessages($callback))
 			->send();
+	}
+
+	/**
+	 * Set global configuration information.
+	 *
+	 * @param  mixed  $key
+	 *
+	 * @return  $this
+	 */
+	public function setConfig(array $items) : self
+	{
+		$this->config = $items;
+
+		return $this;
 	}
 
 	/**
