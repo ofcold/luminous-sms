@@ -1,5 +1,7 @@
 <?php
 
+namespace Ofcold\LuminousSMS;
+
 use Ofcold\LuminousSMS\Contracts\MessageInterface;
 
 /**
@@ -52,11 +54,13 @@ class LuminousSms
 	 */
 	public function sender($callback, ?string $handler = null)
 	{
-		$this->setMessages($callback);
+		$message = $this->setMessages($callback);
 
 		$handler = $this->createHandler($handler);
 
-		return $handler->send($message);
+		return $handler
+			->setMessage($message)
+			->send();
 	}
 
 	/**
@@ -76,7 +80,7 @@ class LuminousSms
 	 *
 	 * @return $this
 	 */
-	public function setMessages($callback)
+	public function setMessages($callback) : MessageInterface
 	{
 		$message = $this->getMessage();
 
@@ -95,7 +99,7 @@ class LuminousSms
 				break;
 		}
 
-		return $this;
+		return $message;
 	}
 
 	/**
@@ -131,7 +135,8 @@ class LuminousSms
 	 */
 	protected function getQcloudHandler() : HandlersInterface
 	{
-		return new Qcloud($this->config['supported']['qcloud']);
+		return (new Qcloud)
+			->setConfig($this->config['supported']['qcloud']);
 	}
 
 	/**

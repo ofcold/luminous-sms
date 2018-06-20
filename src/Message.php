@@ -1,5 +1,7 @@
 <?php
 
+namespace Ofcold\LuminousSMS;
+
 use Ofcold\LuminousSMS\Contracts\MessageInterface;
 
 /**
@@ -18,10 +20,25 @@ use Ofcold\LuminousSMS\Contracts\MessageInterface;
  */
 class Message implements MessageInterface
 {
+	/**
+	 * The code.
+	 *
+	 * @var int
+	 */
 	protected $code;
 
+	/**
+	 * The content.
+	 *
+	 * @var string
+	 */
 	protected $content;
 
+	/**
+	 * The template.
+	 *
+	 * @var string
+	 */
 	protected $template;
 
 	/**

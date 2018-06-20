@@ -1,5 +1,7 @@
 <?php
 
+namespace Ofcold\LuminousSMS;
+
 use Ofcold\LuminousSMS\Contracts\MessageInterface;
 use Ofcold\LuminousSMS\Contracts\HandersInterface;
 
@@ -19,6 +21,8 @@ use Ofcold\LuminousSMS\Contracts\HandersInterface;
  */
 abstract class Handlers implements HandersInterface
 {
+	use HttpClientRequest;
+
 	/**
 	 * The message instance.
 	 *
