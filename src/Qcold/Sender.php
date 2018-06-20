@@ -3,6 +3,7 @@
 namespace Ofcold\LuminousSMS\Qcold;
 
 use Ofcold\LuminousSMS\Helpers;
+use Ofcold\LuminousSMS\Exceptions\HandlerBadException;
 
 /**
  * Class Sender
@@ -67,7 +68,7 @@ class Sender
 
 		$random = Helpers::random(10);
 
-		$params['sig'] = GenerateSign::make($params, $random, $this->qcloud->getConfig('app_key'));
+		$params['sig'] = $this->createSign($params, $random);
 
 		$result = $this->qcloud->request(
 			'post',
@@ -130,5 +131,30 @@ class Sender
 	public function templateId()
 	{
 
+	}
+
+	/**
+	 * Generate Sign.
+	 *
+	 * @param  array  $params
+	 * @param  string  $random
+	 *
+	 * @return  string
+	 */
+	protected function createSign(array $params, string $random) : string
+	{
+		ksort($params);
+
+		return hash(
+			'sha256',
+			sprintf(
+				'appkey=%s&random=%s&time=%s&mobile=%s',
+				$this->qcloud->getConfig('app_key'),
+				$random,
+				$params['time'],
+				$params['tel']['mobile']
+			),
+			false
+		);
 	}
 }
