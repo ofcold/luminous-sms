@@ -3,6 +3,7 @@
 namespace Ofcold\LuminousSMS\Qcold;
 
 use Ofcold\LuminousSMS\Helpers;
+use Ofcold\LuminousSMS\Results;
 use Ofcold\LuminousSMS\Exceptions\HandlerBadException;
 
 /**
@@ -38,7 +39,16 @@ class SignaTure
 		$this->qcloud = $qcloud;
 	}
 
-	public function add(string $sign, string $picture = '', string $remark = '')
+	/**
+	 * Add sign.
+	 *
+	 * @param string $sign
+	 * @param string $picture
+	 * @param string $remark
+	 *
+	 * @return array
+	 */
+	public function add(string $sign, string $picture = '', string $remark = '') : array
 	{
 		$params = [
 			'text'		=> $sign,
@@ -51,7 +61,7 @@ class SignaTure
 
 		$params['sig'] = $this->createSign($params, $random);
 
-		$result = $this->qcloud->request(
+		return Results::render($this->qcloud->request(
 			'post',
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
@@ -66,17 +76,20 @@ class SignaTure
 				],
 				'json'  => $params,
 			]
-		);
-
-		if ( 0 != $result['result'] )
-		{
-			throw new HandlerBadException($result['errmsg'], $result['result'], $result);
-		}
-
-		return $result;
+		));
 	}
 
-	public function edit(int $id, string $sign, string $picture = '', string $remark = '')
+	/**
+	 * Edit sign.
+	 *
+	 * @param  int    $id
+	 * @param  string $sign
+	 * @param  string $picture
+	 * @param  string $remark
+	 *
+	 * @return array
+	 */
+	public function edit(int $id, string $sign, string $picture = '', string $remark = '') : array
 	{
 		$params = [
 			'text'		=> $sign,
@@ -90,7 +103,7 @@ class SignaTure
 
 		$params['sig'] = $this->createSign($params, $random);
 
-		$result = $this->qcloud->request(
+		return Results::render($this->qcloud->request(
 			'post',
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
@@ -105,17 +118,17 @@ class SignaTure
 				],
 				'json'  => $params,
 			]
-		);
-
-		if ( 0 != $result['result'] )
-		{
-			throw new HandlerBadException($result['errmsg'], $result['result'], $result);
-		}
-
-		return $result;
+		));
 	}
 
-	public function query(array $ids)
+	/**
+	 * Query sign.
+	 *
+	 * @param  array  $ids
+	 *
+	 * @return array
+	 */
+	public function query(array $ids) : array
 	{
 		$random = Helpers::random(10);
 
@@ -126,7 +139,7 @@ class SignaTure
 		$params['sig'] = $this->createSign($params, $random);
 		$params['sign_id'] = $ids;
 
-		$result = $this->qcloud->request(
+		return Results::render($this->qcloud->request(
 			'post',
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
@@ -141,14 +154,43 @@ class SignaTure
 				],
 				'json'  => $params,
 			]
-		);
+		));
+	}
 
-		if ( 0 != $result['result'] )
-		{
-			throw new HandlerBadException($result['errmsg'], $result['result'], $result);
-		}
+	/**
+	 * Remove Sign.
+	 *
+	 * @param  array  $ids
+	 *
+	 * @return array
+	 */
+	public function remove($ids) : array
+	{
+		$random = Helpers::random(10);
 
-		return $result;
+		$params = [
+			'time'	=> time()
+		];
+
+		$params['sig'] = $this->createSign($params, $random);
+		$params['sign_id'] = $ids;
+
+		return Results::render($this->qcloud->request(
+			'post',
+			sprintf(
+				'%s%s?sdkappid=%s&random=%s',
+				Qcloud::REQUEST_URL,
+				$this->requestMehtod('remove'),
+				$this->qcloud->getConfig('app_id'),
+				$random
+			),
+			[
+				'headers'	=> [
+					'Accept' => 'application/json'
+				],
+				'json'  => $params,
+			]
+		));
 	}
 
 	/**
