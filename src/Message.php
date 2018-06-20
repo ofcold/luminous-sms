@@ -25,13 +25,47 @@ class Message implements MessageInterface
 	protected $template;
 
 	/**
-	 * Return the country code.
+	 * Get the sign.
 	 *
-	 * @return  int
+	 * @return string
 	 */
-	public function getCode() : int
+	public function getSign() : string
 	{
+		return $this->sign;
+	}
 
+	/**
+	 * Set the sign.
+	 *
+	 * @param string $sign
+	 */
+	public function setSign(string $sign) : MessageInterface
+	{
+		$this->sign = $sign;
+
+		return $this;
+	}
+
+	/**
+	 * Send SMS type.
+	 *
+	 * @return  string
+	 */
+	public function getType() : string
+	{
+		return $this->type ?: static::TEXT_MESSAGE;
+	}
+
+	/**
+	 * Set the send SMS type.
+	 *
+	 * @param string $type
+	 */
+	public function setType(string $type) : MessageInterface
+	{
+		$this->type = $type;
+
+		return $this;
 	}
 
 	/**
@@ -41,7 +75,7 @@ class Message implements MessageInterface
 	 */
 	public function getContent() : string
 	{
-
+		return $this->content;
 	}
 
 	/**
@@ -51,7 +85,9 @@ class Message implements MessageInterface
 	 */
 	public function setContent(string $content) : MessageInterface
 	{
+		$this->content = $content;
 
+		return $this;
 	}
 
 	/**
@@ -61,6 +97,6 @@ class Message implements MessageInterface
 	 */
 	public function getTemplate(): string
 	{
-
+		return $this->template;
 	}
 }
