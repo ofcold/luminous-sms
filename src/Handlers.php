@@ -19,15 +19,75 @@ use Ofcold\LuminousSMS\Contracts\HandersInterface;
  */
 abstract class Handlers implements HandersInterface
 {
+	/**
+	 * The message instance.
+	 *
+	 * @var MessageInterface
+	 */
 	protected $message;
 
-	public function __construct(MessageInterface $message)
+	/**
+	 * The handler config.
+	 *
+	 * @var array
+	 */
+	protected $config = [];
+
+	/**
+	 * Set the Message instance.
+	 *
+	 * @param MessageInterface $message
+	 */
+	public function setMessage(MessageInterface $message)
 	{
 		$this->message = $message;
+
+		return $this;
 	}
 
+	/**
+	 * Get the Message instance.
+	 *
+	 * @return MessageInterface
+	 */
 	public function getMessage()
 	{
 		return $this->message;
+	}
+
+	/**
+	 * Set the config items.
+	 *
+	 * @param array $config
+	 *
+	 * @return $this
+	 */
+	public function setConfig(array $config)
+	{
+		$this->config = $config;
+
+		return $this;
+	}
+
+	/**
+	 * Get the config item.
+	 *
+	 * @param  string $key
+	 *
+	 * @return mixed
+	 */
+	public function getConfig(string $key)
+	{
+		return $this->config[$key] ?? null;
+	}
+
+	/**
+	 * Get config items.
+	 *
+	 * @return array
+	 */
+	public function getConfigs() : array
+	{
+		return $this->config;
 	}
 }

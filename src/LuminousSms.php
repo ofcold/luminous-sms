@@ -18,8 +18,6 @@ use Ofcold\LuminousSMS\Contracts\MessageInterface;
  */
 class LuminousSms
 {
-	protected static $handlers = [];
-
 	/**
 	 * The configuration items.
 	 *
@@ -44,24 +42,17 @@ class LuminousSms
 		$this->config = $config;
 	}
 
+	/**
+	 * Sender SMS.
+	 *
+	 * @param  array|callable  $callback
+	 * @param  string|null     $handler
+	 *
+	 * @return mixed
+	 */
 	public function sender($callback, ?string $handler = null)
 	{
-		$message = $this->getMessage();
-
-		switch (true)
-		{
-			case is_callable($callback):
-					$callback($message);
-				break;
-
-			case is_array($callback):
-					new MessageHydrator($message, $callback);
-				break;
-
-			default:
-					throw new InvalidArgumentException('The [1] parameter only supports arrays or closures');
-				break;
-		}
+		$this->setMessages($callback);
 
 		$handler = $this->createHandler($handler);
 
@@ -76,6 +67,35 @@ class LuminousSms
 	public function getMessage() : MessageInterface
 	{
 		return $this->message ?: new Message;
+	}
+
+	/**
+	 * Set the messages.
+	 *
+	 * @param array|callable $callback
+	 *
+	 * @return $this
+	 */
+	public function setMessages($callback)
+	{
+		$message = $this->getMessage();
+
+		switch (true)
+		{
+			case is_callable($callback):
+					$callback($message);
+				break;
+
+			case is_array($callback):
+					new MessageHydrator($message, $callback);
+				break;
+
+			default:
+					throw new InvalidArgumentException('The [1] parameter only supports arrays or closures.');
+				break;
+		}
+
+		return $this;
 	}
 
 	/**
