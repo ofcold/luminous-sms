@@ -70,7 +70,7 @@ class Sender
 
 		$params['sig'] = $this->createSign($params, $random);
 
-		$result = $this->qcloud->request(
+		return Results::render($this->qcloud->request(
 			'post',
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
@@ -85,14 +85,7 @@ class Sender
 				],
 				'json'  => $params,
 			]
-		);
-
-		if ( 0 != $result['result'] )
-		{
-			throw new HandlerBadException($result['errmsg'], $result['result'], $result);
-		}
-
-		return $result;
+		));
 
 	}
 
