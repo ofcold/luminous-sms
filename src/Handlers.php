@@ -125,4 +125,18 @@ abstract class Handlers implements HandersInterface
 
 		return $this;
 	}
+
+	/**
+	 * Send SMS to send.
+	 *
+	 * The current drive service providers to implement push information content.
+	 *
+	 * @return array
+	 *
+	 * @throws \Ofcold\LuminousSMS\Exceptions\HandlerBadException;
+	 */
+	public function send() : array
+	{
+		throw new HandlerBadException('message failed to send');
+	}
 }
