@@ -10,12 +10,28 @@ use Ofcold\LuminousSMS\Contracts\MessageInterface;
 
 $sms = new LuminousSMS(include __DIR__ . '/resources/config/sms.php');
 
-$result = $sms->sender(function($messager) {
-	$messager
-		->setMobilePhone('18898726543')
-		->setType(Ofcold\LuminousSMS\Contracts\MessageInterface::VOICE_MESSAGE)
-		->setContent('您的验证码是{code}, 验证码将在2分钟后失效！请及时使用。')
-		->setPaserData(['code'	=> rand(1000, 9999)]);
-});
+//	------------------------------------------------------------------------------------------------
+//	Send Message.
+// $result = $sms->sender(function($messager) {
+// 	$messager
+// 		->setMobilePhone('18898726543')
+// 		->setType(Ofcold\LuminousSMS\Contracts\MessageInterface::VOICE_MESSAGE)
+// 		->setContent('您的验证码是{code}, 验证码将在2分钟后失效！请及时使用。')
+// 		->setPaserData(['code'	=> rand(1000, 9999)]);
+// });
 
-var_dump($result);
+// var_dump($result);
+
+//	------------------------------------------------------------------------------------------------
+
+//	Signature manager
+//	Add
+//$resuts = $sms->createHandler('qcloud')->getSignature('add', '衣衣布舍');
+//
+// Query
+//$resuts = $sms->createHandler('qcloud')->getSignature('query', [15858, 15859]);
+//
+//	Edit
+$resuts = $sms->createHandler('qcloud')->getSignature('edit', '150986', '你是哪里来');
+
+var_dump($resuts);
