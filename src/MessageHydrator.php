@@ -1,5 +1,7 @@
 <?php
 
+namespace Ofcold\LuminousSMS;
+
 use Ofcold\LuminousSMS\Contracts\MessageInterface;
 
 /**
