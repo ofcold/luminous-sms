@@ -1,6 +1,22 @@
 <?php
 
-trait GenerateSign
+namespace Ofcold\LuminousSMS\Qcold;
+
+/**
+ * trait GenerateSign
+ *
+ * @link  https://ofcold.com
+ * @link  https://ofcold.com/license
+ *
+ * @author  Ofcold <support@ofcold.com>
+ * @author  Olivia Fu <olivia@ofcold.com>
+ * @author  Bill Li <bill.li@ofcold.com>
+ *
+ * @package  Ofcold\LuminousSMS\Qcold\GenerateSign
+ *
+ * @copyright  Copyright (c) 2017-2018, Ofcold. All rights reserved.
+ */
+class GenerateSign
 {
 	/**
 	 * Generate Sign.
@@ -11,7 +27,7 @@ trait GenerateSign
 	 *
 	 * @return  string
 	 */
-	public static function createSign(array $params, string $random, string $appKey) : string
+	public static function make(array $params, string $random, string $appKey) : string
 	{
 		ksort($params);
 
