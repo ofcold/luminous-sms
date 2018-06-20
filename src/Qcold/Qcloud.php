@@ -34,15 +34,14 @@ class Qcloud extends Handlers
 	 */
 	public const REQUEST_METHOD = [
 		'text'	=> 'tlssmssvr/sendsms',
-		'voice'	=> 'tlsvoicesvr/sendvoiceprompt'
+		'voice'	=> 'tlsvoicesvr/sendvoiceprompt',
+		'sign'	=> [
+			'add'		=> 'tlssmssvr/add_sign',
+			'edit'		=> 'tlssmssvr/mod_sign',
+			'remove'	=> 'tlssmssvr/del_sign',
+			'query'		=> 'tlssmssvr/get_sign'
+		]
 	];
-
-	/**
-	 * Request format
-	 *
-	 * @var string
-	 */
-	public const REQUEST_FORMAT = 'json';
 
 	/**
 	 * Send SMS to send.
@@ -57,5 +56,25 @@ class Qcloud extends Handlers
 	{
 		return (new Sender($this))
 			->render();
+	}
+
+	/**
+	 * Get the SignaTure instance.
+	 *
+	 * @param  string|null $method
+	 * @param  array  $attributes
+	 *
+	 * @return mixed
+	 */
+	public function getSignature(?string $method = null, ...$attributes)
+	{
+		$instance = new SignaTure($this);
+
+		if ( $method && method_exists($instance, $method) )
+		{
+			return $instance->$method(...$attributes);
+		}
+
+		return $instance;
 	}
 }
