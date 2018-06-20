@@ -13,8 +13,8 @@ A powerful international SMS push.
 ## Platform support
 |供应商|开发状态|时间|
 |--------|--------|--------|
-|[腾讯云 SMS](https://cloud.tencent.com/product/sms)|:clock8:|2018-06-20|
-|[云片](https://www.yunpian.com)|:x:|--|
+|[腾讯云 SMS](https://cloud.tencent.com/product/sms)|:white_check_mark:|2018-06-20|
+|[云片](https://www.yunpian.com)|:clock8:|2018-06-21|
 |[阿里大鱼](https://www.alidayu.com)|:x:|--|
 |[百度云](https://cloud.baidu.com)|:x:|--|
 

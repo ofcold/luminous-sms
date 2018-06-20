@@ -41,6 +41,12 @@ class Qcloud extends Handlers
 			'remove'	=> 'tlssmssvr/del_sign',
 			'query'		=> 'tlssmssvr/get_sign'
 		],
+		'template'	=> [
+			'add'		=> 'tlssmssvr/add_template',
+			'edit'		=> 'tlssmssvr/mod_template',
+			'remove'	=> 'tlssmssvr/del_template',
+			'query'		=> 'tlssmssvr/get_template',
+		],
 		'tatol'	=> [
 			'sender'	=> 'tlssmssvr/pullsendstatus'
 		]
@@ -72,6 +78,26 @@ class Qcloud extends Handlers
 	public function getSignature(?string $method = null, ...$attributes)
 	{
 		$instance = new SignaTure($this);
+
+		if ( $method && method_exists($instance, $method) )
+		{
+			return $instance->$method(...$attributes);
+		}
+
+		return $instance;
+	}
+
+	/**
+	 * Get the Template instance.
+	 *
+	 * @param  string|null $method
+	 * @param  array  $attributes
+	 *
+	 * @return mixed
+	 */
+	public function getTemplate(?string $method = null, ...$attributes)
+	{
+		$instance = new Template($this);
 
 		if ( $method && method_exists($instance, $method) )
 		{
