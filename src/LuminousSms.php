@@ -110,7 +110,7 @@ class LuminousSms
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function createHandler(?string $handler = null) : HandlersInterface
+	public function createHandler(?string $handler = null)
 	{
 		if ( ($handler && !$this->handlerExists($handler)) || is_null($handler) )
 		{
@@ -132,7 +132,7 @@ class LuminousSms
 	 *
 	 * @return HandlersInterface
 	 */
-	protected function getQcloudHandler() : HandlersInterface
+	protected function getQcloudHandler()
 	{
 		return (new Qcloud)
 			->setConfig($this->config['supported']['qcloud']);
