@@ -3,6 +3,7 @@
 namespace Ofcold\LuminousSMS\Qcold;
 
 use Ofcold\LuminousSMS\Handlers;
+use Ofcold\LuminousSMS\Exceptions\MethodNotFoundException;
 
 /**
  * Class Qcloud
@@ -53,6 +54,20 @@ class Qcloud extends Handlers
 	];
 
 	/**
+	 * The Signature instance.
+	 *
+	 * @var Signature
+	 */
+	protected static $signature;
+
+	/**
+	 * The Template instance.
+	 *
+	 * @var Templatye
+	 */
+	protected static $template;
+
+	/**
 	 * Send SMS to send.
 	 *
 	 * The current drive service providers to implement push information content.
@@ -63,28 +78,27 @@ class Qcloud extends Handlers
 	 */
 	public function send() : array
 	{
-		return (new Sender($this))
-			->render();
+		return Sender::render($this);
 	}
 
 	/**
 	 * Get the SignaTure instance.
 	 *
-	 * @param  string|null $method
+	 * @param  string $method
 	 * @param  array  $attributes
 	 *
 	 * @return mixed
 	 */
-	public function getSignature(?string $method = null, ...$attributes)
+	public function getSignature(string $method, ...$attributes)
 	{
-		$instance = new SignaTure($this);
+		$instance = static::$signature ?: new SignaTure($this);
 
-		if ( $method && method_exists($instance, $method) )
+		if ( method_exists($instance, $method) )
 		{
 			return $instance->$method(...$attributes);
 		}
 
-		return $instance;
+		throw new MethodNotFoundException("Add {$method} does not exist object SignaTure");
 	}
 
 	/**
@@ -97,13 +111,13 @@ class Qcloud extends Handlers
 	 */
 	public function getTemplate(?string $method = null, ...$attributes)
 	{
-		$instance = new Template($this);
+		$instance = static::$template ?: new Template($this);
 
-		if ( $method && method_exists($instance, $method) )
+		if ( method_exists($instance, $method) )
 		{
 			return $instance->$method(...$attributes);
 		}
 
-		return $instance;
+		throw new MethodNotFoundException("Add {$method} does not exist object Template");
 	}
 }
