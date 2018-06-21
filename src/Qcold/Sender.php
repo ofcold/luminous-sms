@@ -2,6 +2,7 @@
 
 namespace Ofcold\LuminousSMS\Qcold;
 
+use Ofcold\LuminousSMS\Results;
 use Ofcold\LuminousSMS\Helpers;
 use Ofcold\LuminousSMS\Exceptions\HandlerBadException;
 
@@ -22,45 +23,28 @@ use Ofcold\LuminousSMS\Exceptions\HandlerBadException;
 class Sender
 {
 	/**
-	 * The qcloud instance.
-	 *
-	 * @var Qcloud
-	 */
-	protected $qcloud;
-
-	/**
-	 * Create an a new Sender.
-	 *
-	 * @param Qcloud $qcloud
-	 */
-	public function __construct(Qcloud $qcloud)
-	{
-		$this->qcloud = $qcloud;
-	}
-
-	/**
 	 * Sender SMS
 	 *
 	 * @return mixed
 	 */
-	public function render()
+	public static function render(Qcloud $qcloud)
 	{
-		$method = method_exists($this, $this->qcloud->getMessage()->getType())
-			 ? $this->qcloud->getMessage()->getType()
+		$method = method_exists(__CLASS__, $qcloud->getMessage()->getType())
+			 ? $qcloud->getMessage()->getType()
 			 : 'text';
 
-		$params = $this->$method();
+		$params = static::$method($qcloud);
 
 		//	Set SMS flag.
-		if ( $sign = $this->qcloud->getMessage()->getSign() )
+		if ( $sign = $qcloud->getMessage()->getSign() )
 		{
 			$params['sign']	= $sign;
 		}
 
 		//	Set the full mobile phone.
 		$params['tel']	= [
-			'nationcode'	=> $this->qcloud->getMessage()->getCode(),
-			'mobile'		=> $this->qcloud->getMessage()->getMobilePhone()
+			'nationcode'	=> $qcloud->getMessage()->getCode(),
+			'mobile'		=> $qcloud->getMessage()->getMobilePhone()
 		];
 
 		$params['time'] = time();
@@ -68,15 +52,15 @@ class Sender
 
 		$random = Helpers::random(10);
 
-		$params['sig'] = $this->createSign($params, $random);
+		$params['sig'] = static::createSign($params, $random, $qcloud);
 
-		return Results::render($this->qcloud->request(
+		return Results::render($qcloud->request(
 			'post',
 			sprintf(
 				'%s%s?sdkappid=%s&random=%s',
 				Qcloud::REQUEST_URL,
-				Qcloud::REQUEST_METHOD[$this->qcloud->getMessage()->getType()],
-				$this->qcloud->getConfig('app_id'),
+				Qcloud::REQUEST_METHOD[$qcloud->getMessage()->getType()],
+				$qcloud->getConfig('app_id'),
 				$random
 			),
 			[
@@ -94,13 +78,15 @@ class Sender
 	 *
 	 * Text SMS request body.
 	 *
+	 * @param  Qcloud  $qcloud
+	 *
 	 * @return  array
 	 */
-	protected function text() : array
+	protected static function text(Qcloud $qcloud) : array
 	{
 		return [
-			'type'		=> (int)($this->qcloud->getMessage()->getType() !== 'text'),
-			'msg'		=> $this->qcloud->getMessage()->getContent(),
+			'type'		=> (int)($qcloud->getMessage()->getType() !== 'text'),
+			'msg'		=> $qcloud->getMessage()->getContent(),
 			'extend'	=> ''
 		];
 	}
@@ -110,18 +96,20 @@ class Sender
 	 *
 	 * Voice SMS request body.
 	 *
+	 * @param  Qcloud  $qcloud
+	 *
 	 * @return  array
 	 */
-	protected function voice() : array
+	protected static function voice(Qcloud $qcloud) : array
 	{
 		return [
-			'promptfile'	=> $this->qcloud->getMessage()->getContent(),
+			'promptfile'	=> $qcloud->getMessage()->getContent(),
 			'prompttype'	=> 2,
 			'playtimes'		=> 2
 		];
 	}
 
-	public function templateId()
+	public static function templateId(Qcloud $qcloud)
 	{
 
 	}
@@ -131,10 +119,11 @@ class Sender
 	 *
 	 * @param  array  $params
 	 * @param  string  $random
+	 * @param  Qcloud  $qcloud
 	 *
 	 * @return  string
 	 */
-	protected function createSign(array $params, string $random) : string
+	protected static function createSign(array $params, string $random, Qcloud $qcloud) : string
 	{
 		ksort($params);
 
@@ -142,7 +131,7 @@ class Sender
 			'sha256',
 			sprintf(
 				'appkey=%s&random=%s&time=%s&mobile=%s',
-				$this->qcloud->getConfig('app_key'),
+				$qcloud->getConfig('app_key'),
 				$random,
 				$params['time'],
 				$params['tel']['mobile']
