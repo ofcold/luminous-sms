@@ -184,11 +184,11 @@ class Message implements MessageInterface
 	}
 
 	/**
-	 * Set the paser data.
+	 * Set the parser data.
 	 *
 	 * @param array $data
 	 */
-	public function setPaserData(array $data) : MessageInterface
+	public function setParserData(array $data) : MessageInterface
 	{
 		$this->parserData = $data;
 
